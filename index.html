@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wolf Cleaning — Product Mockups</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --wc-blue: #1D4ED8;
+      --wc-blue-light: #EFF6FF;
+      --wc-blue-mid: #DBEAFE;
+      --wc-surface: #FAFAF8;
+      --wc-surface-card: #FFFFFF;
+      --wc-border: #E8E5DE;
+      --wc-border-light: #F0EDE6;
+      --wc-text: #1A1A18;
+      --wc-text-secondary: #6B6960;
+      --wc-text-tertiary: #9C978C;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'DM Sans', system-ui, sans-serif;
+      background: var(--wc-surface);
+      color: var(--wc-text);
+      min-height: 100vh;
+    }
+
+    /* ── Header ── */
+    .site-header {
+      padding: 28px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--wc-border-light);
+      background: var(--wc-surface-card);
+    }
+    .logo-group { display: flex; align-items: center; gap: 14px; }
+    .logo-group svg { width: 40px; height: 40px; }
+    .logo-text {
+      font-family: 'Fraunces', serif;
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--wc-text);
+      letter-spacing: -0.03em;
+    }
+    .logo-sub { font-size: 12px; color: var(--wc-text-tertiary); margin-top: 1px; }
+    .header-badge {
+      font-size: 11px;
+      font-weight: 500;
+      padding: 5px 14px;
+      border-radius: 20px;
+      background: var(--wc-blue-light);
+      color: var(--wc-blue);
+      border: 1px solid var(--wc-blue-mid);
+    }
+
+    /* ── Main content ── */
+    .main { max-width: 960px; margin: 0 auto; padding: 48px 32px 80px; }
+
+    .intro {
+      margin-bottom: 48px;
+      max-width: 560px;
+    }
+    .intro h1 {
+      font-family: 'Fraunces', serif;
+      font-size: 32px;
+      font-weight: 600;
+      color: var(--wc-text);
+      letter-spacing: -0.03em;
+      line-height: 1.2;
+      margin-bottom: 12px;
+    }
+    .intro p {
+      font-size: 15px;
+      color: var(--wc-text-secondary);
+      line-height: 1.6;
+    }
+
+    /* ── Screen cards ── */
+    .screens { display: flex; flex-direction: column; gap: 16px; }
+
+    .screen-card {
+      background: var(--wc-surface-card);
+      border: 1px solid var(--wc-border);
+      border-radius: 14px;
+      overflow: hidden;
+      transition: box-shadow 0.2s, border-color 0.2s;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+    .screen-card:hover {
+      box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+      border-color: #d0cdc6;
+    }
+
+    .screen-card-inner {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      padding: 24px 28px;
+    }
+
+    .screen-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .screen-icon svg { width: 24px; height: 24px; }
+
+    .screen-info { flex: 1; min-width: 0; }
+    .screen-title {
+      font-family: 'Fraunces', serif;
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--wc-text);
+      letter-spacing: -0.02em;
+      margin-bottom: 4px;
+    }
+    .screen-desc {
+      font-size: 13px;
+      color: var(--wc-text-secondary);
+      line-height: 1.5;
+    }
+    .screen-tags {
+      display: flex;
+      gap: 6px;
+      margin-top: 8px;
+      flex-wrap: wrap;
+    }
+    .screen-tag {
+      font-size: 10px;
+      font-weight: 500;
+      padding: 3px 10px;
+      border-radius: 20px;
+      background: var(--wc-surface);
+      color: var(--wc-text-tertiary);
+      border: 1px solid var(--wc-border-light);
+    }
+
+    .screen-arrow {
+      flex-shrink: 0;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--wc-surface);
+      border: 1px solid var(--wc-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s;
+    }
+    .screen-card:hover .screen-arrow {
+      background: var(--wc-blue);
+      border-color: var(--wc-blue);
+    }
+    .screen-card:hover .screen-arrow svg { stroke: white; }
+
+    /* ── Footer ── */
+    .site-footer {
+      padding: 24px 32px;
+      text-align: center;
+      font-size: 12px;
+      color: var(--wc-text-tertiary);
+      border-top: 1px solid var(--wc-border-light);
+    }
+    .site-footer a { color: var(--wc-blue); text-decoration: none; }
+
+    /* ── Responsive ── */
+    @media (max-width: 640px) {
+      .site-header { padding: 20px 18px; }
+      .logo-text { font-size: 17px; }
+      .header-badge { display: none; }
+      .main { padding: 32px 18px 60px; }
+      .intro h1 { font-size: 26px; }
+      .intro p { font-size: 14px; }
+      .screen-card-inner { padding: 18px 16px; gap: 16px; }
+      .screen-icon { width: 48px; height: 48px; border-radius: 12px; }
+      .screen-title { font-size: 16px; }
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .screen-card { animation: fadeInUp 0.5s ease both; }
+    .screen-card:nth-child(1) { animation-delay: 0.1s; }
+    .screen-card:nth-child(2) { animation-delay: 0.2s; }
+    .screen-card:nth-child(3) { animation-delay: 0.3s; }
+    .intro { animation: fadeInUp 0.5s ease both; }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="logo-group">
+      <svg viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M30 4 L48 12 L52 30 Q52 46 30 56 Q8 46 8 30 L12 12 Z" fill="#1D4ED8" opacity="0.12"/>
+        <path d="M30 4 L48 12 L52 30 Q52 46 30 56 Q8 46 8 30 L12 12 Z" fill="none" stroke="#1D4ED8" stroke-width="1.5" opacity="0.5"/>
+        <path d="M20 28 L22 20 L26 22 L30 18 L34 22 L38 20 L40 28 L36 32 Q33 38 30 38 Q27 38 24 32 Z" fill="#1D4ED8" opacity="0.85"/>
+        <path d="M22 20 L20 14 L25 18 Z" fill="#1D4ED8"/>
+        <path d="M38 20 L40 14 L35 18 Z" fill="#1D4ED8"/>
+        <path d="M24 36 L36 36" stroke="#1D4ED8" stroke-width="2.5" stroke-linecap="round"/>
+      </svg>
+      <div>
+        <div class="logo-text">Wolf Cleaning</div>
+        <div class="logo-sub">Product Mockups</div>
+      </div>
+    </div>
+    <span class="header-badge">Staging · v0.1</span>
+  </header>
+
+  <main class="main">
+    <div class="intro">
+      <h1>Ruitenwas CRM voor zelfstandige buitendienstwerkers</h1>
+      <p>Klantenbeheer, routeplanning en lead tracking in één mobiele tool. Hieronder vind je de drie kernschermen van het product.</p>
+    </div>
+
+    <div class="screens">
+      <!-- Dashboard -->
+      <a class="screen-card" href="wolfcleaning_dashboard.html">
+        <div class="screen-card-inner">
+          <div class="screen-icon" style="background: var(--wc-blue-light);">
+            <svg viewBox="0 0 24 24" fill="none" stroke="var(--wc-blue)" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+          </div>
+          <div class="screen-info">
+            <div class="screen-title">Dashboard</div>
+            <div class="screen-desc">Desktop overzicht met KPI's, zoneplanning, omzetgrafiek en dagelijkse klantenlijst.</div>
+            <div class="screen-tags">
+              <span class="screen-tag">Desktop</span>
+              <span class="screen-tag">Responsive</span>
+              <span class="screen-tag">KPI's</span>
+              <span class="screen-tag">Zoneplanning</span>
+            </div>
+          </div>
+          <div class="screen-arrow">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--wc-text-tertiary)" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </div>
+        </div>
+      </a>
+
+      <!-- Mobile CRM -->
+      <a class="screen-card" href="wolfcleaning_crm_mockup_v2.html">
+        <div class="screen-card-inner">
+          <div class="screen-icon" style="background: #ECFDF5;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="1.5"><rect x="5" y="2" width="14" height="20" rx="3"/><path d="M12 18h.01"/></svg>
+          </div>
+          <div class="screen-info">
+            <div class="screen-title">Mobile CRM</div>
+            <div class="screen-desc">Drie kernschermen: dagplanning met route, klantfiche met bezoekhistoriek, en leads pipeline.</div>
+            <div class="screen-tags">
+              <span class="screen-tag">Mobile-first</span>
+              <span class="screen-tag">3 schermen</span>
+              <span class="screen-tag">Vandaag / Klant / Leads</span>
+            </div>
+          </div>
+          <div class="screen-arrow">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--wc-text-tertiary)" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </div>
+        </div>
+      </a>
+
+      <!-- Routeplanner -->
+      <a class="screen-card" href="wolfcleaning_routeplanner.html">
+        <div class="screen-card-inner">
+          <div class="screen-icon" style="background: #FEF3C7;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#D97706" stroke-width="1.5"><path d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/></svg>
+          </div>
+          <div class="screen-info">
+            <div class="screen-title">Routeplanner</div>
+            <div class="screen-desc">Interactieve kaart met stoplijst, route-optimalisatie en zone-filtering. Klikbaar en drag-and-drop.</div>
+            <div class="screen-tags">
+              <span class="screen-tag">Interactief</span>
+              <span class="screen-tag">Canvas kaart</span>
+              <span class="screen-tag">Route optimalisatie</span>
+            </div>
+          </div>
+          <div class="screen-arrow">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--wc-text-tertiary)" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </div>
+        </div>
+      </a>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    Wolf Cleaning Mockups · <a href="https://conversal.be">Conversal BV</a> · April 2025
+  </footer>
+
+</body>
+</html>

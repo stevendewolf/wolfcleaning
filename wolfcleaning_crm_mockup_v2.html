@@ -1,0 +1,309 @@
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&display=swap');
+
+:root {
+  --wc-blue: #1D4ED8; --wc-blue-light: #EFF6FF; --wc-blue-mid: #DBEAFE;
+  --wc-green: #059669; --wc-green-light: #DCFCE7;
+  --wc-amber: #D97706; --wc-amber-light: #FEF3C7;
+  --wc-purple: #6D28D9;
+  --wc-surface: #FAFAF8; --wc-surface-card: #FFFFFF;
+  --wc-border: #E8E5DE; --wc-border-light: #F0EDE6;
+  --wc-text: #1A1A18; --wc-text-secondary: #6B6960; --wc-text-tertiary: #9C978C;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ═══ DESKTOP: phone showcase ═══ */
+.desktop-showcase {
+  display: flex; justify-content: center; padding: 32px 16px; gap: 24px; flex-wrap: wrap;
+}
+.phone-col { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.phone-label { font-family:'DM Sans',sans-serif; font-size:11px; font-weight:500; color:var(--wc-text-tertiary); text-transform:uppercase; letter-spacing:0.08em; }
+.phone-frame {
+  width: 340px; min-height: 720px;
+  background: var(--wc-surface); border-radius: 44px;
+  border: 5px solid #1A1A18; overflow: hidden;
+  position: relative; display: flex; flex-direction: column;
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.08), 0 20px 50px rgba(0,0,0,0.12), 0 8px 20px rgba(0,0,0,0.06);
+  font-family: 'DM Sans', system-ui, sans-serif;
+}
+
+/* ═══ MOBILE: native layout ═══ */
+.mobile-app { display: none; font-family: 'DM Sans', system-ui, sans-serif; background: var(--wc-surface); min-height: 100vh; flex-direction: column; }
+.mobile-tabs {
+  display: flex; background: var(--wc-surface-card); border-bottom: 1px solid var(--wc-border);
+  position: sticky; top: 0; z-index: 50; overflow-x: auto; -webkit-overflow-scrolling: touch;
+}
+.mobile-tab {
+  flex: 1; min-width: 0; padding: 14px 8px 12px; text-align: center;
+  font-size: 13px; font-weight: 500; color: var(--wc-text-tertiary);
+  cursor: pointer; border-bottom: 2px solid transparent; white-space: nowrap;
+  transition: all 0.15s;
+}
+.mobile-tab.active { color: var(--wc-blue); border-bottom-color: var(--wc-blue); }
+.mobile-screen { display: none; flex: 1; }
+.mobile-screen.active { display: block; }
+.mobile-bottom-nav {
+  display: flex; position: sticky; bottom: 0; left: 0; right: 0; height: 64px;
+  background: var(--wc-surface-card); border-top: 1px solid var(--wc-border);
+  align-items: center; justify-content: space-around; padding: 0 4px;
+  z-index: 100;
+}
+.m-nav-item { display:flex; flex-direction:column; align-items:center; gap:3px; padding:6px 12px; cursor:pointer; position:relative; }
+.m-nav-item svg { width:20px; height:20px; }
+.m-nav-label { font-size:10px; color:var(--wc-text-tertiary); font-weight:500; }
+.m-nav-item.active .m-nav-label { color:var(--wc-blue); font-weight:600; }
+.m-nav-item.active::after { content:''; position:absolute; top:0; width:20px; height:2px; border-radius:2px; background:var(--wc-blue); }
+
+/* ═══ Shared component styles ═══ */
+.status-bar { display:flex; justify-content:space-between; align-items:center; padding:14px 28px 8px; font-size:13px; font-weight:600; color:var(--wc-text); }
+.screen-content { flex:1; overflow-y:auto; padding-bottom:85px; }
+.nav-bar { position:absolute; bottom:0; left:0; right:0; height:72px; background:var(--wc-surface-card); border-top:1px solid var(--wc-border-light); display:flex; align-items:center; justify-content:space-around; padding:0 8px 8px; z-index:10; }
+.nav-bar .nav-item { display:flex; flex-direction:column; align-items:center; gap:4px; cursor:pointer; padding:6px 14px; }
+.nav-bar .nav-lbl { font-size:10px; color:var(--wc-text-tertiary); font-weight:500; }
+.nav-bar .nav-lbl.act { color:var(--wc-blue); font-weight:600; }
+
+.header-bar { padding:14px 22px 18px; background:var(--wc-surface-card); border-bottom:1px solid var(--wc-border-light); }
+.header-greeting { font-family:'Fraunces',serif; font-size:22px; font-weight:600; color:var(--wc-text); letter-spacing:-0.03em; }
+.header-sub { font-size:13px; color:var(--wc-text-secondary); margin-top:2px; }
+.header-row { display:flex; align-items:center; justify-content:space-between; }
+.avatar-circle { width:40px; height:40px; border-radius:50%; background:linear-gradient(135deg,var(--wc-blue),#3B82F6); display:flex; align-items:center; justify-content:center; color:white; font-size:13px; font-weight:600; flex-shrink:0; }
+
+.section { padding:18px 22px 0; }
+.section-label { font-size:10px; font-weight:500; color:var(--wc-text-tertiary); text-transform:uppercase; letter-spacing:0.08em; margin-bottom:12px; }
+
+.stat-row { display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px; margin-bottom:18px; }
+.stat-card { background:var(--wc-surface-card); border:1px solid var(--wc-border); border-radius:12px; padding:12px 14px; }
+.stat-label { font-size:11px; color:var(--wc-text-secondary); margin-bottom:4px; }
+.stat-value { font-family:'Fraunces',serif; font-size:22px; font-weight:600; color:var(--wc-text); letter-spacing:-0.03em; }
+.stat-sub { font-size:10px; color:var(--wc-text-tertiary); margin-top:2px; }
+
+.stop-card { background:var(--wc-surface-card); border:1px solid var(--wc-border); border-radius:14px; padding:14px 16px; margin-bottom:8px; display:flex; align-items:center; gap:12px; }
+.stop-card.active-stop { border-color:var(--wc-blue); border-width:1.5px; background:var(--wc-blue-light); }
+.stop-num { width:34px; height:34px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:600; flex-shrink:0; }
+.stop-num.done { background:var(--wc-green-light); color:#166534; }
+.stop-num.next { background:var(--wc-blue-mid); color:var(--wc-blue); }
+.stop-num.todo { background:var(--wc-surface); color:var(--wc-text-tertiary); border:1px solid var(--wc-border); }
+.stop-info { flex:1; min-width:0; }
+.stop-name { font-size:15px; font-weight:500; color:var(--wc-text); }
+.stop-addr { font-size:12px; color:var(--wc-text-secondary); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.stop-meta { text-align:right; flex-shrink:0; }
+.stop-price { font-family:'Fraunces',serif; font-size:16px; font-weight:600; color:var(--wc-text); letter-spacing:-0.02em; }
+
+.badge { display:inline-flex; align-items:center; font-size:11px; padding:3px 9px; border-radius:20px; font-weight:500; }
+.badge-green { background:var(--wc-green-light); color:#166534; }
+.badge-blue { background:var(--wc-blue-mid); color:var(--wc-blue); }
+.badge-orange { background:var(--wc-amber-light); color:#92400E; }
+.badge-gray { background:var(--wc-surface); color:var(--wc-text-secondary); border:1px solid var(--wc-border-light); }
+
+.btn-primary { background:var(--wc-blue); color:white; border:none; border-radius:14px; padding:15px 20px; font-size:15px; font-weight:500; width:100%; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px; box-shadow:0 2px 8px rgba(29,78,216,0.2); font-family:'DM Sans',sans-serif; }
+.btn-secondary { background:var(--wc-surface-card); color:var(--wc-text); border:1px solid var(--wc-border); border-radius:14px; padding:13px 20px; font-size:14px; font-weight:500; cursor:pointer; flex:1; font-family:'DM Sans',sans-serif; }
+
+.client-header { display:flex; align-items:center; gap:14px; padding:18px 22px; border-bottom:1px solid var(--wc-border-light); background:var(--wc-surface-card); }
+.avatar-lg { width:52px; height:52px; border-radius:14px; display:flex; align-items:center; justify-content:center; font-size:17px; font-weight:600; flex-shrink:0; }
+.client-name { font-family:'Fraunces',serif; font-size:19px; font-weight:600; color:var(--wc-text); letter-spacing:-0.02em; }
+.client-addr { font-size:13px; color:var(--wc-text-secondary); margin-top:1px; }
+.info-card { background:var(--wc-surface-card); border:1px solid var(--wc-border); border-radius:14px; overflow:hidden; }
+.info-row { display:flex; justify-content:space-between; padding:12px 16px; border-bottom:1px solid var(--wc-border-light); font-size:14px; }
+.info-row:last-child { border-bottom:none; }
+.info-label { color:var(--wc-text-secondary); }
+.info-val { font-weight:500; color:var(--wc-text); text-align:right; }
+.note-box { background:#FFFBEB; border:1px solid #FDE68A; border-radius:12px; padding:12px 14px; font-size:13px; color:#78350F; line-height:1.5; }
+.visit-row { display:flex; align-items:center; gap:12px; padding:12px 16px; border-bottom:1px solid var(--wc-border-light); font-size:14px; }
+.visit-row:last-child { border-bottom:none; }
+.visit-date { font-weight:500; color:var(--wc-text); }
+.visit-by { font-size:12px; color:var(--wc-text-tertiary); margin-top:1px; }
+.visit-amount { font-family:'Fraunces',serif; font-size:16px; font-weight:600; color:var(--wc-text); margin-left:10px; }
+
+.lead-card { background:var(--wc-surface-card); border:1px solid var(--wc-border); border-radius:14px; padding:14px 16px; margin-bottom:8px; }
+.lead-card.urgent { border-left:3px solid var(--wc-amber); }
+.lead-header { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:6px; }
+.lead-name { font-size:15px; font-weight:500; color:var(--wc-text); }
+.lead-addr { font-size:12px; color:var(--wc-text-secondary); margin-top:2px; }
+.lead-footer { display:flex; justify-content:space-between; align-items:center; margin-top:8px; }
+.lead-potential { font-size:12px; color:var(--wc-text-secondary); }
+.lead-time { font-size:11px; color:var(--wc-text-tertiary); }
+.pipeline-label { font-size:13px; font-weight:500; padding:6px 0 10px; color:var(--wc-text-secondary); display:flex; align-items:center; justify-content:space-between; }
+.pipeline-count { font-size:10px; font-weight:600; padding:2px 8px; border-radius:10px; }
+
+.back-link { padding:14px 22px 12px; border-bottom:1px solid var(--wc-border-light); background:var(--wc-surface-card); }
+.back-link a { color:var(--wc-blue); font-size:14px; font-weight:500; text-decoration:none; }
+
+/* ═══ RESPONSIVE ═══ */
+@media (max-width: 768px) {
+  .desktop-showcase { display: none !important; }
+  .mobile-app { display: flex; }
+}
+@media (min-width: 769px) {
+  .mobile-app { display: none !important; }
+}
+</style>
+
+<!-- ═══════════ DESKTOP: 3 phone showcase ═══════════ -->
+<div class="desktop-showcase">
+
+  <!-- Phone 1: Vandaag -->
+  <div class="phone-col">
+    <span class="phone-label">Vandaag</span>
+    <div class="phone-frame">
+      <div class="status-bar"><span>9:41</span><span style="font-size:11px;">●●●●</span></div>
+      <div style="display:flex;flex-direction:column;flex:1;overflow:hidden;">
+        <div class="header-bar"><div class="header-row"><div><div class="header-greeting">Goedemorgen, Philip</div><div class="header-sub">Vrijdag 4 april · Affligem</div></div><div class="avatar-circle">PW</div></div></div>
+        <div class="screen-content">
+          <div class="section">
+            <div class="stat-row">
+              <div class="stat-card"><div class="stat-label">Stops</div><div class="stat-value">14</div><div class="stat-sub">3 gedaan</div></div>
+              <div class="stat-card"><div class="stat-label">Omzet</div><div class="stat-value">€347</div><div class="stat-sub">verwacht</div></div>
+              <div class="stat-card"><div class="stat-label">Km</div><div class="stat-value">48</div><div class="stat-sub">gereden</div></div>
+            </div>
+          </div>
+          <div class="section">
+            <div class="section-label">Route vandaag</div>
+            <div class="stop-card"><div class="stop-num done">✓</div><div class="stop-info"><div class="stop-name">Fam. De Smedt</div><div class="stop-addr">Kerkstraat 12, Affligem</div></div><div class="stop-meta"><div class="stop-price">€24</div><span class="badge badge-green">Gedaan</span></div></div>
+            <div class="stop-card"><div class="stop-num done">✓</div><div class="stop-info"><div class="stop-name">Bakkerij Lievens</div><div class="stop-addr">Brusselsesteenweg 88</div></div><div class="stop-meta"><div class="stop-price">€45</div><span class="badge badge-green">Gedaan</span></div></div>
+            <div class="stop-card active-stop"><div class="stop-num next">3</div><div class="stop-info"><div class="stop-name">Mevr. Janssen</div><div class="stop-addr">Molenbergstraat 5, Asse</div></div><div class="stop-meta"><div class="stop-price">€32</div><div style="color:var(--wc-blue);font-size:11px;font-weight:500;">Volgende</div></div></div>
+            <div class="stop-card"><div class="stop-num todo">4</div><div class="stop-info"><div class="stop-name">Kantoor VDB nv</div><div class="stop-addr">Industrielaan 22, Ternat</div></div><div class="stop-meta"><div class="stop-price">€68</div><div style="font-size:11px;color:var(--wc-text-tertiary);">± 10:45</div></div></div>
+            <div class="stop-card"><div class="stop-num todo">5</div><div class="stop-info"><div class="stop-name">Fam. Wouters</div><div class="stop-addr">Nieuwstraat 3, Liedekerke</div></div><div class="stop-meta"><div class="stop-price">€28</div><div style="font-size:11px;color:var(--wc-text-tertiary);">± 11:20</div></div></div>
+          </div>
+          <div class="section" style="padding:14px 22px 20px;"><button class="btn-primary"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/></svg>Navigeer naar volgende stop</button></div>
+        </div>
+        <div class="nav-bar">
+          <div class="nav-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--wc-blue)" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg><span class="nav-lbl act">Vandaag</span></div>
+          <div class="nav-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--wc-text-tertiary)" stroke-width="1.5"><path d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/></svg><span class="nav-lbl">Route</span></div>
+          <div class="nav-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--wc-text-tertiary)" stroke-width="1.5"><path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg><span class="nav-lbl">Klanten</span></div>
+          <div class="nav-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--wc-text-tertiary)" stroke-width="1.5"><path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/></svg><span class="nav-lbl">Leads</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Phone 2: Klantfiche -->
+  <div class="phone-col">
+    <span class="phone-label">Klantfiche</span>
+    <div class="phone-frame">
+      <div class="status-bar"><span>9:41</span><span style="font-size:11px;">●●●●</span></div>
+      <div style="display:flex;flex-direction:column;flex:1;overflow:hidden;">
+        <div class="back-link"><a href="#">← Route</a></div>
+        <div class="screen-content">
+          <div class="client-header"><div class="avatar-lg" style="background:#EDE9FE;color:var(--wc-purple);">BL</div><div><div class="client-name">Bakkerij Lievens</div><div class="client-addr">Brusselsesteenweg 88, Affligem</div><div style="margin-top:8px;display:flex;gap:6px;"><span class="badge badge-green">Actief</span><span class="badge badge-gray">4-wekelijks</span></div></div></div>
+          <div class="section"><div class="section-label">Contactgegevens</div><div class="info-card"><div class="info-row"><span class="info-label">Contactpersoon</span><span class="info-val">Marc Lievens</span></div><div class="info-row"><span class="info-label">Telefoon</span><span class="info-val" style="color:var(--wc-blue);">0476 23 14 88</span></div><div class="info-row"><span class="info-label">Tarief</span><span class="info-val">€45 / beurt</span></div><div class="info-row"><span class="info-label">Betaalwijze</span><span class="info-val">Cash</span></div></div></div>
+          <div class="section" style="padding-top:16px;"><div class="section-label">Notitie</div><div class="note-box">Toegang via zij-ingang. Niet bellen vóór 8u30. Vraagt altijd factuur voor boekhouding.</div></div>
+          <div class="section" style="padding-top:16px;"><div class="section-label">Bezoekhistoriek</div><div class="info-card"><div class="visit-row"><div style="flex:1;"><div class="visit-date">7 mrt 2025</div><div class="visit-by">Philip</div></div><span class="badge badge-green">Betaald</span><div class="visit-amount">€45</div></div><div class="visit-row"><div style="flex:1;"><div class="visit-date">8 feb 2025</div><div class="visit-by">Philip</div></div><span class="badge badge-green">Betaald</span><div class="visit-amount">€45</div></div><div class="visit-row"><div style="flex:1;"><div class="visit-date">10 jan 2025</div><div class="visit-by">Philip</div></div><span class="badge badge-orange">Wacht</span><div class="visit-amount">€45</div></div></div></div>
+          <div class="section" style="padding:16px 22px 20px;"><div style="display:flex;gap:8px;"><button class="btn-secondary">Bellen</button><button class="btn-primary" style="font-size:14px;padding:13px 16px;flex:1.5;">Bezoek afronden</button></div></div>
+        </div>
+        <div class="nav-bar">
+          <div class="nav-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--wc-text-tertiary)" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg><span class="nav-lbl">Vandaag</span></div>
+          <div class="nav-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--wc-text-tertiary)" stroke-width="1.5"><path d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/></svg><span class="nav-lbl">Route</span></div>
+          <div class="nav-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--wc-blue)" stroke-width="1.5"><path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg><span class="nav-lbl act">Klanten</span></div>
+          <div class="nav-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--wc-text-tertiary)" stroke-width="1.5"><path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/></svg><span class="nav-lbl">Leads</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Phone 3: Leads -->
+  <div class="phone-col">
+    <span class="phone-label">Leads</span>
+    <div class="phone-frame">
+      <div class="status-bar"><span>9:41</span><span style="font-size:11px;">●●●●</span></div>
+      <div style="display:flex;flex-direction:column;flex:1;overflow:hidden;">
+        <div class="header-bar"><div class="header-row"><div class="header-greeting" style="font-size:20px;">Leads</div><button style="font-family:'DM Sans',sans-serif;background:var(--wc-blue);color:white;border:none;border-radius:10px;padding:8px 16px;font-size:13px;font-weight:500;cursor:pointer;">+ Nieuwe lead</button></div></div>
+        <div class="screen-content">
+          <div class="section">
+            <div class="pipeline-label">Nieuw contact<span class="pipeline-count" style="background:var(--wc-surface);color:var(--wc-text-secondary);border:1px solid var(--wc-border);">3</span></div>
+            <div class="lead-card"><div class="lead-header"><div><div class="lead-name">Mevr. Pieters</div><div class="lead-addr">Steenhofstraat 14, Ninove</div></div><span class="badge badge-gray">Nieuw</span></div><div class="lead-footer"><span class="lead-potential">Ramen + dakgoten · ± €55/m</span><span class="lead-time">gisteren</span></div></div>
+            <div class="lead-card"><div class="lead-header"><div><div class="lead-name">Restaurant De Kroon</div><div class="lead-addr">Marktplein 3, Aalst</div></div><span class="badge badge-gray">Nieuw</span></div><div class="lead-footer"><span class="lead-potential">Etalages · ± €120/m</span><span class="lead-time">2 dagen</span></div></div>
+          </div>
+          <div class="section" style="padding-top:12px;">
+            <div class="pipeline-label">Offerte verstuurd<span class="pipeline-count" style="background:var(--wc-blue-mid);color:var(--wc-blue);">2</span></div>
+            <div class="lead-card"><div class="lead-header"><div><div class="lead-name">Apotheek Vandenberghe</div><div class="lead-addr">Dendermondesteenweg 7</div></div><span class="badge badge-blue">Offerte</span></div><div class="lead-footer"><span class="lead-potential">Volledige gevel · ± €180/m</span><span class="lead-time">5 dagen</span></div></div>
+          </div>
+          <div class="section" style="padding-top:12px;">
+            <div class="pipeline-label">Opvolgen<span class="pipeline-count" style="background:var(--wc-amber-light);color:#92400E;">1</span></div>
+            <div class="lead-card urgent"><div class="lead-header"><div><div class="lead-name">Fam. Claes</div><div class="lead-addr">Gentsesteenweg 55, Asse</div></div><span class="badge badge-orange">Opvolgen</span></div><div style="font-size:12px;color:#92400E;margin-top:4px;">Geen reactie · 12 dagen</div><div class="lead-footer" style="margin-top:8px;"><span class="lead-potential">± €35/m</span><a href="#" style="font-size:12px;color:var(--wc-blue);font-weight:500;text-decoration:none;">Herinner mij →</a></div></div>
+          </div>
+          <div class="section" style="padding-top:12px;padding-bottom:16px;">
+            <div class="pipeline-label">Gewonnen<span class="pipeline-count" style="background:var(--wc-green-light);color:#166534;">8</span></div>
+            <div class="lead-card"><div class="lead-header"><div><div class="lead-name">Immokantoor Verbeke</div><div class="lead-addr">Brusselsesteenweg 101</div></div><span class="badge badge-green">Klant</span></div><div class="lead-footer"><span class="lead-potential">Actief sinds jan 2025 · €95/m</span><span class="lead-time">3 weken</span></div></div>
+          </div>
+        </div>
+        <div class="nav-bar">
+          <div class="nav-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--wc-text-tertiary)" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg><span class="nav-lbl">Vandaag</span></div>
+          <div class="nav-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--wc-text-tertiary)" stroke-width="1.5"><path d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/></svg><span class="nav-lbl">Route</span></div>
+          <div class="nav-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--wc-text-tertiary)" stroke-width="1.5"><path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg><span class="nav-lbl">Klanten</span></div>
+          <div class="nav-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--wc-blue)" stroke-width="1.5"><path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/></svg><span class="nav-lbl act">Leads</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ MOBILE: Tab-based native view ═══════════ -->
+<div class="mobile-app">
+  <div class="mobile-tabs">
+    <div class="mobile-tab active" onclick="showScreen('vandaag')">Vandaag</div>
+    <div class="mobile-tab" onclick="showScreen('klantfiche')">Klantfiche</div>
+    <div class="mobile-tab" onclick="showScreen('leads')">Leads</div>
+  </div>
+
+  <!-- Screen: Vandaag -->
+  <div class="mobile-screen active" id="screen-vandaag">
+    <div class="header-bar"><div class="header-row"><div><div class="header-greeting">Goedemorgen, Philip</div><div class="header-sub">Vrijdag 4 april · Affligem</div></div><div class="avatar-circle">PW</div></div></div>
+    <div class="section"><div class="stat-row"><div class="stat-card"><div class="stat-label">Stops</div><div class="stat-value">14</div><div class="stat-sub">3 gedaan</div></div><div class="stat-card"><div class="stat-label">Omzet</div><div class="stat-value">€347</div><div class="stat-sub">verwacht</div></div><div class="stat-card"><div class="stat-label">Km</div><div class="stat-value">48</div><div class="stat-sub">gereden</div></div></div></div>
+    <div class="section">
+      <div class="section-label">Route vandaag</div>
+      <div class="stop-card"><div class="stop-num done">✓</div><div class="stop-info"><div class="stop-name">Fam. De Smedt</div><div class="stop-addr">Kerkstraat 12, Affligem</div></div><div class="stop-meta"><div class="stop-price">€24</div><span class="badge badge-green">Gedaan</span></div></div>
+      <div class="stop-card"><div class="stop-num done">✓</div><div class="stop-info"><div class="stop-name">Bakkerij Lievens</div><div class="stop-addr">Brusselsesteenweg 88</div></div><div class="stop-meta"><div class="stop-price">€45</div><span class="badge badge-green">Gedaan</span></div></div>
+      <div class="stop-card active-stop"><div class="stop-num next">3</div><div class="stop-info"><div class="stop-name">Mevr. Janssen</div><div class="stop-addr">Molenbergstraat 5, Asse</div></div><div class="stop-meta"><div class="stop-price">€32</div><div style="color:var(--wc-blue);font-size:11px;font-weight:500;">Volgende</div></div></div>
+      <div class="stop-card"><div class="stop-num todo">4</div><div class="stop-info"><div class="stop-name">Kantoor VDB nv</div><div class="stop-addr">Industrielaan 22</div></div><div class="stop-meta"><div class="stop-price">€68</div><div style="font-size:11px;color:var(--wc-text-tertiary);">± 10:45</div></div></div>
+      <div class="stop-card"><div class="stop-num todo">5</div><div class="stop-info"><div class="stop-name">Fam. Wouters</div><div class="stop-addr">Nieuwstraat 3</div></div><div class="stop-meta"><div class="stop-price">€28</div><div style="font-size:11px;color:var(--wc-text-tertiary);">± 11:20</div></div></div>
+    </div>
+    <div class="section" style="padding:14px 22px 90px;"><button class="btn-primary">Navigeer naar volgende stop</button></div>
+  </div>
+
+  <!-- Screen: Klantfiche -->
+  <div class="mobile-screen" id="screen-klantfiche">
+    <div class="client-header"><div class="avatar-lg" style="background:#EDE9FE;color:var(--wc-purple);">BL</div><div><div class="client-name">Bakkerij Lievens</div><div class="client-addr">Brusselsesteenweg 88, Affligem</div><div style="margin-top:8px;display:flex;gap:6px;"><span class="badge badge-green">Actief</span><span class="badge badge-gray">4-wekelijks</span></div></div></div>
+    <div class="section"><div class="section-label">Contactgegevens</div><div class="info-card"><div class="info-row"><span class="info-label">Contact</span><span class="info-val">Marc Lievens</span></div><div class="info-row"><span class="info-label">Telefoon</span><span class="info-val" style="color:var(--wc-blue);">0476 23 14 88</span></div><div class="info-row"><span class="info-label">Tarief</span><span class="info-val">€45 / beurt</span></div><div class="info-row"><span class="info-label">Betaalwijze</span><span class="info-val">Cash</span></div></div></div>
+    <div class="section" style="padding-top:16px;"><div class="section-label">Notitie</div><div class="note-box">Toegang via zij-ingang. Niet bellen vóór 8u30.</div></div>
+    <div class="section" style="padding-top:16px;"><div class="section-label">Bezoekhistoriek</div><div class="info-card"><div class="visit-row"><div style="flex:1;"><div class="visit-date">7 mrt 2025</div><div class="visit-by">Philip</div></div><span class="badge badge-green">Betaald</span><div class="visit-amount">€45</div></div><div class="visit-row"><div style="flex:1;"><div class="visit-date">8 feb 2025</div><div class="visit-by">Philip</div></div><span class="badge badge-green">Betaald</span><div class="visit-amount">€45</div></div></div></div>
+    <div class="section" style="padding:16px 22px 90px;"><div style="display:flex;gap:8px;"><button class="btn-secondary">Bellen</button><button class="btn-primary" style="font-size:14px;padding:13px 16px;flex:1.5;">Bezoek afronden</button></div></div>
+  </div>
+
+  <!-- Screen: Leads -->
+  <div class="mobile-screen" id="screen-leads">
+    <div class="header-bar"><div class="header-row"><div class="header-greeting" style="font-size:20px;">Leads</div><button style="font-family:'DM Sans',sans-serif;background:var(--wc-blue);color:white;border:none;border-radius:10px;padding:8px 16px;font-size:13px;font-weight:500;cursor:pointer;">+ Nieuwe lead</button></div></div>
+    <div class="section">
+      <div class="pipeline-label">Nieuw contact<span class="pipeline-count" style="background:var(--wc-surface);color:var(--wc-text-secondary);border:1px solid var(--wc-border);">3</span></div>
+      <div class="lead-card"><div class="lead-header"><div><div class="lead-name">Mevr. Pieters</div><div class="lead-addr">Steenhofstraat 14, Ninove</div></div><span class="badge badge-gray">Nieuw</span></div><div class="lead-footer"><span class="lead-potential">Ramen + dakgoten · ± €55/m</span><span class="lead-time">gisteren</span></div></div>
+      <div class="lead-card"><div class="lead-header"><div><div class="lead-name">Restaurant De Kroon</div><div class="lead-addr">Marktplein 3, Aalst</div></div><span class="badge badge-gray">Nieuw</span></div><div class="lead-footer"><span class="lead-potential">Etalages · ± €120/m</span><span class="lead-time">2 dagen</span></div></div>
+    </div>
+    <div class="section" style="padding-top:12px;">
+      <div class="pipeline-label">Offerte verstuurd<span class="pipeline-count" style="background:var(--wc-blue-mid);color:var(--wc-blue);">2</span></div>
+      <div class="lead-card"><div class="lead-header"><div><div class="lead-name">Apotheek Vandenberghe</div><div class="lead-addr">Dendermondesteenweg 7</div></div><span class="badge badge-blue">Offerte</span></div><div class="lead-footer"><span class="lead-potential">Volledige gevel · ± €180/m</span><span class="lead-time">5 dagen</span></div></div>
+    </div>
+    <div class="section" style="padding-top:12px;">
+      <div class="pipeline-label">Opvolgen<span class="pipeline-count" style="background:var(--wc-amber-light);color:#92400E;">1</span></div>
+      <div class="lead-card urgent"><div class="lead-header"><div><div class="lead-name">Fam. Claes</div><div class="lead-addr">Gentsesteenweg 55, Asse</div></div><span class="badge badge-orange">Opvolgen</span></div><div style="font-size:12px;color:#92400E;margin-top:4px;">Geen reactie · 12 dagen</div><div class="lead-footer" style="margin-top:8px;"><span class="lead-potential">± €35/m</span><a href="#" style="font-size:12px;color:var(--wc-blue);font-weight:500;text-decoration:none;">Herinner →</a></div></div>
+    </div>
+    <div class="section" style="padding-top:12px;padding-bottom:90px;">
+      <div class="pipeline-label">Gewonnen<span class="pipeline-count" style="background:var(--wc-green-light);color:#166534;">8</span></div>
+      <div class="lead-card"><div class="lead-header"><div><div class="lead-name">Immokantoor Verbeke</div><div class="lead-addr">Brusselsesteenweg 101</div></div><span class="badge badge-green">Klant</span></div><div class="lead-footer"><span class="lead-potential">Actief sinds jan 2025 · €95/m</span><span class="lead-time">3 weken</span></div></div>
+    </div>
+  </div>
+
+  <div class="mobile-bottom-nav">
+    <div class="m-nav-item active"><svg viewBox="0 0 24 24" fill="none" stroke="var(--wc-blue)" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg><span class="m-nav-label" style="color:var(--wc-blue);">Vandaag</span></div>
+    <div class="m-nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="var(--wc-text-tertiary)" stroke-width="1.5"><path d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/></svg><span class="m-nav-label">Routes</span></div>
+    <div class="m-nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="var(--wc-text-tertiary)" stroke-width="1.5"><path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg><span class="m-nav-label">Klanten</span></div>
+    <div class="m-nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="var(--wc-text-tertiary)" stroke-width="1.5"><path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/></svg><span class="m-nav-label">Leads</span></div>
+  </div>
+</div>
+
+<script>
+function showScreen(name) {
+  document.querySelectorAll('.mobile-screen').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.mobile-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('screen-' + name).classList.add('active');
+  event.target.classList.add('active');
+}
+</script>

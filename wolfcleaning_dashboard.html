@@ -1,0 +1,268 @@
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&display=swap');
+
+:root {
+  --wc-blue: #1D4ED8; --wc-blue-light: #EFF6FF; --wc-blue-mid: #DBEAFE; --wc-blue-dark: #1E3A8A;
+  --wc-green: #059669; --wc-green-light: #ECFDF5; --wc-amber: #D97706; --wc-amber-light: #FFFBEB;
+  --wc-red: #DC2626; --wc-purple: #7C3AED;
+  --wc-zone-a: #6D5DD3; --wc-zone-a-bg: #EDE9FE; --wc-zone-b: #0D9488; --wc-zone-b-bg: #E1F5EE;
+  --wc-zone-c: #D97706; --wc-zone-c-bg: #FEF3C7;
+  --wc-surface: #FAFAF8; --wc-surface-card: #FFFFFF;
+  --wc-border: #E8E5DE; --wc-border-light: #F0EDE6;
+  --wc-text: #1A1A18; --wc-text-secondary: #6B6960; --wc-text-tertiary: #9C978C;
+  --wc-sidebar-bg: #141413; --wc-sidebar-hover: #1F1F1D; --wc-sidebar-active: #2A2A27;
+  --wc-sidebar-text: #A8A49A; --wc-sidebar-text-active: #F5F3EF;
+  --radius: 10px; --radius-lg: 14px;
+  --shadow-card: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+.app {
+  display: flex; min-height: 720px;
+  border-radius: var(--radius-lg); overflow: hidden;
+  font-family: 'DM Sans', system-ui, sans-serif;
+  background: var(--wc-surface); border: 1px solid var(--wc-border);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+}
+
+/* ── Sidebar (desktop) ── */
+.sidebar {
+  width: 220px; flex-shrink: 0; display: flex; flex-direction: column;
+  background: var(--wc-sidebar-bg); color: var(--wc-sidebar-text); overflow: hidden;
+}
+.sidebar-logo { padding: 22px 20px 18px; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid rgba(255,255,255,0.06); }
+.sidebar-logo svg { width: 32px; height: 32px; flex-shrink: 0; }
+.sidebar-logo-text { font-family: 'Fraunces', serif; font-size: 15px; font-weight: 600; color: var(--wc-sidebar-text-active); letter-spacing: -0.02em; }
+.sidebar-logo-sub { font-size: 10px; color: var(--wc-sidebar-text); margin-top: 1px; letter-spacing: 0.04em; text-transform: uppercase; }
+.sidebar-section { padding: 20px 20px 6px; font-size: 10px; font-weight: 500; color: var(--wc-sidebar-text); text-transform: uppercase; letter-spacing: 0.08em; opacity: 0.5; }
+.d-nav-item { display: flex; align-items: center; gap: 10px; padding: 9px 14px; border-radius: 8px; margin: 2px 8px; cursor: pointer; font-size: 13px; color: var(--wc-sidebar-text); transition: all 0.15s; position: relative; }
+.d-nav-item:hover { background: var(--wc-sidebar-hover); color: var(--wc-sidebar-text-active); }
+.d-nav-item.active { background: var(--wc-sidebar-active); color: var(--wc-sidebar-text-active); font-weight: 500; }
+.d-nav-item.active::before { content:''; position:absolute; left:0; top:50%; transform:translateY(-50%); width:3px; height:18px; border-radius:0 3px 3px 0; background:var(--wc-blue); }
+.d-nav-item svg { width: 16px; height: 16px; flex-shrink: 0; opacity: 0.5; }
+.d-nav-item.active svg { opacity: 0.9; }
+.nav-badge { margin-left:auto; font-size:10px; font-weight:500; background:rgba(255,255,255,0.08); padding:1px 7px; border-radius:10px; }
+.d-nav-item.active .nav-badge { background:rgba(29,78,216,0.25); color:#93B4F8; }
+.sidebar-bottom { margin-top:auto; padding:12px 8px 14px; border-top:1px solid rgba(255,255,255,0.06); }
+.sidebar-user { display:flex; align-items:center; gap:10px; padding:8px 12px; border-radius:8px; }
+.sidebar-avatar { width:32px; height:32px; border-radius:50%; background:linear-gradient(135deg,#1D4ED8,#3B82F6); display:flex; align-items:center; justify-content:center; color:white; font-size:11px; font-weight:600; flex-shrink:0; }
+.sidebar-user-name { font-size:13px; color:var(--wc-sidebar-text-active); font-weight:500; }
+.sidebar-user-role { font-size:10px; color:var(--wc-sidebar-text); }
+
+/* ── Mobile bottom nav ── */
+.mobile-nav { display:none; position:sticky; bottom:0; left:0; right:0; height:64px; background:var(--wc-surface-card); border-top:1px solid var(--wc-border); align-items:center; justify-content:space-around; padding:0 4px; z-index:100; flex-shrink:0; }
+.m-nav-item { display:flex; flex-direction:column; align-items:center; gap:3px; padding:6px 12px; cursor:pointer; position:relative; }
+.m-nav-item svg { width:20px; height:20px; }
+.m-nav-label { font-size:10px; color:var(--wc-text-tertiary); font-weight:500; }
+.m-nav-item.active .m-nav-label { color:var(--wc-blue); font-weight:600; }
+.m-nav-item.active::after { content:''; position:absolute; top:0; width:20px; height:2px; border-radius:2px; background:var(--wc-blue); }
+
+/* ── Main ── */
+.main { flex:1; overflow-y:auto; display:flex; flex-direction:column; background:var(--wc-surface); }
+.topbar { padding:14px 28px; display:flex; align-items:center; justify-content:space-between; flex-shrink:0; border-bottom:1px solid var(--wc-border-light); background:var(--wc-surface-card); }
+.breadcrumb { display:flex; align-items:center; gap:6px; font-size:13px; color:var(--wc-text-tertiary); }
+.breadcrumb-active { color:var(--wc-text); font-weight:500; }
+.topbar-right { display:flex; align-items:center; gap:8px; }
+.topbar-logo-mobile { display:none; align-items:center; gap:8px; }
+.topbar-logo-mobile svg { width:26px; height:26px; }
+.topbar-logo-mobile span { font-family:'Fraunces',serif; font-size:15px; font-weight:600; color:var(--wc-text); }
+.btn-sm { font-size:12px; font-family:'DM Sans',sans-serif; padding:6px 14px; border-radius:8px; border:1px solid var(--wc-border); background:var(--wc-surface-card); color:var(--wc-text-secondary); cursor:pointer; display:flex; align-items:center; gap:5px; white-space:nowrap; }
+.btn-primary-sm { font-size:12px; font-family:'DM Sans',sans-serif; padding:6px 16px; border-radius:8px; border:none; background:var(--wc-blue); color:white; cursor:pointer; font-weight:500; display:flex; align-items:center; gap:5px; white-space:nowrap; }
+.content { padding:24px 28px; flex:1; }
+
+/* ── Welcome ── */
+.welcome-row { display:flex; align-items:flex-end; justify-content:space-between; margin-bottom:22px; }
+.welcome-title { font-family:'Fraunces',serif; font-size:24px; font-weight:600; color:var(--wc-text); letter-spacing:-0.03em; }
+.welcome-sub { font-size:13px; color:var(--wc-text-secondary); margin-top:3px; }
+
+/* ── Stat cards ── */
+.stat-row { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:20px; }
+.stat-card { background:var(--wc-surface-card); border:1px solid var(--wc-border); border-radius:var(--radius); padding:16px 18px; position:relative; overflow:hidden; }
+.stat-card::after { content:''; position:absolute; top:0; left:0; width:100%; height:3px; }
+.stat-card:nth-child(1)::after { background:var(--wc-blue); }
+.stat-card:nth-child(2)::after { background:var(--wc-green); }
+.stat-card:nth-child(3)::after { background:var(--wc-amber); }
+.stat-card:nth-child(4)::after { background:var(--wc-purple); }
+.stat-icon { width:32px; height:32px; border-radius:8px; display:flex; align-items:center; justify-content:center; margin-bottom:10px; }
+.stat-label { font-size:12px; color:var(--wc-text-secondary); margin-bottom:4px; }
+.stat-value { font-family:'Fraunces',serif; font-size:26px; font-weight:600; color:var(--wc-text); letter-spacing:-0.03em; }
+.stat-delta { font-size:11px; margin-top:4px; }
+.delta-up { color:var(--wc-green); }
+.delta-down { color:var(--wc-red); }
+
+/* ── Mid row ── */
+.mid-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:20px; }
+.card { background:var(--wc-surface-card); border:1px solid var(--wc-border); border-radius:var(--radius); padding:18px 20px; }
+.card-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:16px; }
+.card-title { font-size:13px; font-weight:500; color:var(--wc-text); }
+.card-subtitle { font-size:11px; color:var(--wc-text-tertiary); }
+.zone-grid { display:grid; grid-template-columns:60px repeat(4,1fr); gap:0; }
+.zone-grid-header { font-size:10px; font-weight:500; color:var(--wc-text-tertiary); text-align:center; padding:0 0 10px; text-transform:uppercase; letter-spacing:0.05em; }
+.zone-grid-label { font-size:11px; font-weight:500; color:var(--wc-text-secondary); display:flex; align-items:center; padding:6px 0; }
+.zone-block { border-radius:6px; padding:7px 6px; font-size:10px; font-weight:500; text-align:center; margin:3px 3px; }
+.zone-a-block { background:var(--wc-zone-a-bg); color:var(--wc-zone-a); }
+.zone-b-block { background:var(--wc-zone-b-bg); color:var(--wc-zone-b); }
+.zone-c-block { background:var(--wc-zone-c-bg); color:var(--wc-zone-c); }
+.zone-rest { border:1px dashed var(--wc-border); border-radius:6px; padding:7px 6px; font-size:10px; color:var(--wc-text-tertiary); text-align:center; margin:3px 3px; }
+.zone-legend { display:flex; gap:14px; margin-top:14px; padding-top:12px; border-top:1px solid var(--wc-border-light); flex-wrap:wrap; }
+.zone-legend-item { display:flex; align-items:center; gap:5px; font-size:11px; color:var(--wc-text-secondary); }
+.zone-dot { width:8px; height:8px; border-radius:50%; }
+.revenue-hero { font-family:'Fraunces',serif; font-size:28px; font-weight:600; color:var(--wc-text); letter-spacing:-0.03em; }
+.revenue-change { font-size:12px; color:var(--wc-green); font-weight:500; margin-left:8px; }
+.bar-chart { display:flex; align-items:flex-end; gap:6px; height:90px; margin-top:16px; }
+.bar-col { flex:1; display:flex; flex-direction:column; align-items:center; gap:6px; height:100%; justify-content:flex-end; }
+.bar { width:100%; border-radius:5px 5px 2px 2px; }
+.bar-label { font-size:10px; color:var(--wc-text-tertiary); font-weight:500; }
+
+/* ── Table ── */
+.table-card { background:var(--wc-surface-card); border:1px solid var(--wc-border); border-radius:var(--radius); overflow:hidden; }
+.table-header { padding:14px 20px; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid var(--wc-border-light); gap:8px; }
+.table-title { font-size:14px; font-weight:500; color:var(--wc-text); white-space:nowrap; }
+.table-count { font-size:12px; color:var(--wc-text-tertiary); margin-left:8px; white-space:nowrap; }
+.table-scroll { overflow-x:auto; -webkit-overflow-scrolling:touch; }
+table.route-table { width:100%; border-collapse:collapse; font-size:13px; min-width:620px; }
+table.route-table th { font-size:10px; font-weight:500; color:var(--wc-text-tertiary); text-transform:uppercase; letter-spacing:0.05em; padding:10px 16px; text-align:left; border-bottom:1px solid var(--wc-border-light); background:var(--wc-surface); white-space:nowrap; }
+table.route-table td { padding:11px 16px; border-bottom:1px solid var(--wc-border-light); color:var(--wc-text); vertical-align:middle; }
+table.route-table tr:last-child td { border-bottom:none; }
+table.route-table tr.row-highlight { background:var(--wc-blue-light); }
+.td-name { font-weight:500; white-space:nowrap; }
+.td-addr { font-size:11px; color:var(--wc-text-secondary); margin-top:1px; white-space:nowrap; }
+.badge { display:inline-flex; align-items:center; font-size:11px; padding:3px 9px; border-radius:20px; font-weight:500; gap:4px; white-space:nowrap; }
+.badge-zone-a { background:var(--wc-zone-a-bg); color:var(--wc-zone-a); }
+.badge-green { background:#DCFCE7; color:#166534; }
+.badge-blue { background:var(--wc-blue-mid); color:var(--wc-blue); }
+.badge-gray { background:var(--wc-surface); color:var(--wc-text-secondary); border:1px solid var(--wc-border-light); }
+.freq-dot { width:6px; height:6px; border-radius:50%; display:inline-block; margin-right:5px; }
+
+/* Animations */
+@keyframes fadeInUp { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+.stat-card { animation:fadeInUp 0.4s ease both; }
+.stat-card:nth-child(1) { animation-delay:0.05s; } .stat-card:nth-child(2) { animation-delay:0.1s; }
+.stat-card:nth-child(3) { animation-delay:0.15s; } .stat-card:nth-child(4) { animation-delay:0.2s; }
+
+/* ═══ RESPONSIVE ═══ */
+@media (max-width: 768px) {
+  .app { flex-direction:column; min-height:auto; border-radius:0; border:none; box-shadow:none; }
+  .sidebar { display:none; }
+  .mobile-nav { display:flex; }
+  .breadcrumb { display:none; }
+  .topbar-logo-mobile { display:flex; }
+  .topbar { padding:12px 16px; }
+  .topbar-right { margin-left:auto; }
+  .content { padding:18px 16px 80px; }
+  .welcome-title { font-size:20px; }
+  .welcome-sub { font-size:12px; }
+  .stat-row { grid-template-columns:1fr 1fr; gap:8px; }
+  .stat-card { padding:14px; }
+  .stat-icon { width:28px; height:28px; margin-bottom:8px; }
+  .stat-value { font-size:22px; }
+  .mid-row { grid-template-columns:1fr; }
+  .card { padding:16px; }
+  .zone-grid { grid-template-columns:44px repeat(4,1fr); }
+  .zone-grid-header { font-size:9px; }
+  .zone-grid-label { font-size:10px; }
+  .zone-block, .zone-rest { font-size:9px; padding:5px 3px; margin:2px; }
+  .revenue-hero { font-size:24px; }
+  .bar-chart { height:70px; }
+  .table-header { padding:12px 16px; flex-wrap:wrap; }
+  .table-count { display:none; }
+}
+@media (min-width: 769px) {
+  .mobile-nav { display:none !important; }
+  .topbar-logo-mobile { display:none !important; }
+}
+</style>
+
+<div class="app">
+  <div class="sidebar">
+    <div class="sidebar-logo">
+      <svg viewBox="0 0 60 60" fill="none"><path d="M30 4 L48 12 L52 30 Q52 46 30 56 Q8 46 8 30 L12 12 Z" fill="#3B82F6" opacity="0.15"/><path d="M30 4 L48 12 L52 30 Q52 46 30 56 Q8 46 8 30 L12 12 Z" fill="none" stroke="#3B82F6" stroke-width="1.5" opacity="0.6"/><path d="M20 28 L22 20 L26 22 L30 18 L34 22 L38 20 L40 28 L36 32 Q33 38 30 38 Q27 38 24 32 Z" fill="#60A5FA" opacity="0.9"/><path d="M22 20 L20 14 L25 18 Z" fill="#60A5FA"/><path d="M38 20 L40 14 L35 18 Z" fill="#60A5FA"/><path d="M24 36 L36 36" stroke="#60A5FA" stroke-width="2.5" stroke-linecap="round"/></svg>
+      <div><div class="sidebar-logo-text">Wolf Cleaning</div><div class="sidebar-logo-sub">Ruitenwas CRM</div></div>
+    </div>
+    <div class="sidebar-section">Workspace</div>
+    <div class="d-nav-item active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>Dashboard</div>
+    <div class="d-nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/></svg>Routes</div>
+    <div class="d-nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>Klanten<span class="nav-badge">47</span></div>
+    <div class="d-nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/></svg>Leads<span class="nav-badge">6</span></div>
+    <div class="d-nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>Planning</div>
+    <div class="sidebar-bottom">
+      <div class="sidebar-section" style="padding-top:0;">Account</div>
+      <div class="d-nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><circle cx="12" cy="12" r="3"/></svg>Instellingen</div>
+      <div class="sidebar-user"><div class="sidebar-avatar">PW</div><div><div class="sidebar-user-name">Philip De Wolf</div><div class="sidebar-user-role">Eigenaar</div></div></div>
+    </div>
+  </div>
+
+  <div class="main">
+    <div class="topbar">
+      <div class="topbar-logo-mobile">
+        <svg viewBox="0 0 60 60" fill="none"><path d="M30 4 L48 12 L52 30 Q52 46 30 56 Q8 46 8 30 L12 12 Z" fill="#1D4ED8" opacity="0.15"/><path d="M20 28 L22 20 L26 22 L30 18 L34 22 L38 20 L40 28 L36 32 Q33 38 30 38 Q27 38 24 32 Z" fill="#1D4ED8" opacity="0.85"/><path d="M22 20 L20 14 L25 18 Z" fill="#1D4ED8"/><path d="M38 20 L40 14 L35 18 Z" fill="#1D4ED8"/></svg>
+        <span>Wolf Cleaning</span>
+      </div>
+      <div class="breadcrumb"><span>Wolf Cleaning</span><span style="opacity:0.4;">/</span><span class="breadcrumb-active">Dashboard</span></div>
+      <div class="topbar-right">
+        <button class="btn-sm"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>W14</button>
+        <button class="btn-primary-sm"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>Nieuwe klant</button>
+      </div>
+    </div>
+    <div class="content">
+      <div class="welcome-row"><div><div class="welcome-title">Goedemorgen, Philip</div><div class="welcome-sub">Vrijdag 4 april · 14 stops gepland vandaag in Zone A</div></div></div>
+
+      <div class="stat-row">
+        <div class="stat-card"><div class="stat-icon" style="background:var(--wc-blue-light);"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--wc-blue)" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div><div class="stat-label">Omzet deze maand</div><div class="stat-value">€ 3.840</div><div class="stat-delta delta-up">+12% vs vorige maand</div></div>
+        <div class="stat-card"><div class="stat-icon" style="background:var(--wc-green-light);"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--wc-green)" stroke-width="2"><path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg></div><div class="stat-label">Actieve klanten</div><div class="stat-value">47</div><div class="stat-delta delta-up">+3 deze maand</div></div>
+        <div class="stat-card"><div class="stat-icon" style="background:var(--wc-amber-light);"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--wc-amber)" stroke-width="2"><path d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/></svg></div><div class="stat-label">Stops deze week</div><div class="stat-value">58</div><div class="stat-delta" style="color:var(--wc-text-secondary);">3 zones · 4 dagen</div></div>
+        <div class="stat-card"><div class="stat-icon" style="background:#F3F0FF;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--wc-purple)" stroke-width="2"><path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/></svg></div><div class="stat-label">Open leads</div><div class="stat-value">6</div><div class="stat-delta delta-down">1 al 14 dagen open</div></div>
+      </div>
+
+      <div class="mid-row">
+        <div class="card">
+          <div class="card-header"><div><div class="card-title">Zoneplanning</div><div class="card-subtitle">4-weeksritme</div></div><button class="btn-sm" style="font-size:11px;padding:4px 10px;">Bewerken</button></div>
+          <div class="zone-grid">
+            <div></div><div class="zone-grid-header">W1</div><div class="zone-grid-header">W2</div><div class="zone-grid-header">W3</div><div class="zone-grid-header">W4</div>
+            <div class="zone-grid-label">Zone A</div><div class="zone-block zone-a-block">Affligem</div><div class="zone-block zone-a-block">Affligem</div><div class="zone-block zone-a-block">Affligem</div><div class="zone-block zone-a-block">Affligem</div>
+            <div class="zone-grid-label">Zone B</div><div class="zone-block zone-b-block">Asse</div><div class="zone-rest">rust</div><div class="zone-block zone-b-block">Asse</div><div class="zone-rest">rust</div>
+            <div class="zone-grid-label">Zone C</div><div class="zone-rest">rust</div><div class="zone-block zone-c-block">Aalst</div><div class="zone-rest">rust</div><div class="zone-block zone-c-block">Aalst</div>
+          </div>
+          <div class="zone-legend"><div class="zone-legend-item"><div class="zone-dot" style="background:var(--wc-zone-a);"></div>Affligem</div><div class="zone-legend-item"><div class="zone-dot" style="background:var(--wc-zone-b);"></div>Asse</div><div class="zone-legend-item"><div class="zone-dot" style="background:var(--wc-zone-c);"></div>Aalst</div></div>
+        </div>
+        <div class="card">
+          <div class="card-header"><div><div class="card-title">Omzet per week</div><div class="card-subtitle">2025</div></div></div>
+          <div style="display:flex;align-items:baseline;gap:4px;margin-bottom:4px;"><span class="revenue-hero">€ 3.840</span><span class="revenue-change">↑ 12%</span></div>
+          <div style="font-size:11px;color:var(--wc-text-tertiary);margin-bottom:14px;">Beste week: W11 · €1.020</div>
+          <div class="bar-chart">
+            <div class="bar-col"><div class="bar" style="background:linear-gradient(180deg,#93B4F8,#C7D2FE);height:45%;"></div><span class="bar-label">W9</span></div>
+            <div class="bar-col"><div class="bar" style="background:linear-gradient(180deg,#93B4F8,#C7D2FE);height:62%;"></div><span class="bar-label">W10</span></div>
+            <div class="bar-col"><div class="bar" style="background:linear-gradient(180deg,var(--wc-blue),#3B82F6);height:100%;box-shadow:0 2px 8px rgba(29,78,216,0.25);"></div><span class="bar-label" style="font-weight:600;color:var(--wc-blue);">W11</span></div>
+            <div class="bar-col"><div class="bar" style="background:linear-gradient(180deg,#93B4F8,#C7D2FE);height:74%;"></div><span class="bar-label">W12</span></div>
+            <div class="bar-col"><div class="bar" style="background:linear-gradient(180deg,#93B4F8,#C7D2FE);height:58%;"></div><span class="bar-label">W13</span></div>
+            <div class="bar-col"><div class="bar" style="background:linear-gradient(180deg,#B4C6EE60,#DBEAFE60);height:40%;border:1.5px dashed #93B4F8;"></div><span class="bar-label" style="color:var(--wc-blue);">W14</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="table-card">
+        <div class="table-header"><div style="display:flex;align-items:center;"><span class="table-title">Route vandaag</span><span class="table-count">Zone A – 14 stops</span></div><div style="display:flex;gap:6px;"><button class="btn-sm" style="font-size:11px;padding:4px 10px;">Filter</button><button class="btn-sm" style="font-size:11px;padding:4px 10px;">Export</button></div></div>
+        <div class="table-scroll">
+          <table class="route-table">
+            <thead><tr><th>Klant</th><th>Zone</th><th>Frequentie</th><th>Tarief</th><th>Betaalwijze</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr><td><div class="td-name">Fam. De Smedt</div><div class="td-addr">Kerkstraat 12</div></td><td><span class="badge badge-zone-a">Zone A</span></td><td><span class="freq-dot" style="background:var(--wc-zone-a);"></span>4w</td><td style="font-weight:500;">€24</td><td>Cash</td><td><span class="badge badge-green">✓ Gedaan</span></td></tr>
+              <tr><td><div class="td-name">Bakkerij Lievens</div><div class="td-addr">Brusselsesteenweg 88</div></td><td><span class="badge badge-zone-a">Zone A</span></td><td><span class="freq-dot" style="background:var(--wc-zone-a);"></span>4w</td><td style="font-weight:500;">€45</td><td>Cash</td><td><span class="badge badge-green">✓ Gedaan</span></td></tr>
+              <tr class="row-highlight"><td><div class="td-name">Mevr. Janssen</div><div class="td-addr">Molenbergstraat 5</div></td><td><span class="badge badge-zone-a">Zone A</span></td><td><span class="freq-dot" style="background:var(--wc-zone-b);"></span>8w</td><td style="font-weight:500;">€32</td><td>Overschrijving</td><td><span class="badge badge-blue">→ Volgende</span></td></tr>
+              <tr><td><div class="td-name">Kantoor VDB nv</div><div class="td-addr">Industrielaan 22</div></td><td><span class="badge badge-zone-a">Zone A</span></td><td><span class="freq-dot" style="background:var(--wc-zone-a);"></span>4w</td><td style="font-weight:500;">€68</td><td>Factuur</td><td><span class="badge badge-gray">10:45</span></td></tr>
+              <tr><td><div class="td-name">Fam. Wouters</div><div class="td-addr">Nieuwstraat 3</div></td><td><span class="badge badge-zone-a">Zone A</span></td><td><span class="freq-dot" style="background:var(--wc-zone-b);"></span>8w</td><td style="font-weight:500;">€28</td><td>Cash</td><td><span class="badge badge-gray">11:20</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile nav (inside .main for sticky to work) -->
+    <div class="mobile-nav">
+      <div class="m-nav-item active"><svg viewBox="0 0 24 24" fill="none" stroke="var(--wc-blue)" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg><span class="m-nav-label" style="color:var(--wc-blue);">Dashboard</span></div>
+      <div class="m-nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="var(--wc-text-tertiary)" stroke-width="1.5"><path d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/></svg><span class="m-nav-label">Routes</span></div>
+      <div class="m-nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="var(--wc-text-tertiary)" stroke-width="1.5"><path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg><span class="m-nav-label">Klanten</span></div>
+      <div class="m-nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="var(--wc-text-tertiary)" stroke-width="1.5"><path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/></svg><span class="m-nav-label">Leads</span></div>
+    </div>
+  </div>
+</div>
