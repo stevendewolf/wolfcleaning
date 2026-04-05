@@ -1,0 +1,335 @@
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&display=swap');
+
+:root {
+  --wc-blue: #1D4ED8; --wc-blue-light: #EFF6FF; --wc-blue-mid: #DBEAFE; --wc-blue-dark: #1E3A8A;
+  --wc-green: #059669; --wc-green-light: #ECFDF5; --wc-green-bg: #DCFCE7;
+  --wc-amber: #D97706; --wc-amber-light: #FFFBEB; --wc-amber-bg: #FEF3C7;
+  --wc-red: #DC2626; --wc-red-light: #FEF2F2;
+  --wc-purple: #6D28D9; --wc-purple-bg: #EDE9FE;
+  --wc-surface: #FAFAF8; --wc-surface-card: #FFFFFF;
+  --wc-border: #E8E5DE; --wc-border-light: #F0EDE6;
+  --wc-text: #1A1A18; --wc-text-sec: #6B6960; --wc-text-ter: #9C978C;
+  --wc-sidebar-bg: #141413;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+.app {
+  display: flex; min-height: 760px;
+  border-radius: 14px; overflow: hidden;
+  font-family: 'DM Sans', system-ui, sans-serif;
+  background: var(--wc-surface); border: 1px solid var(--wc-border);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+}
+
+/* Sidebar */
+.sidebar {
+  width: 56px; flex-shrink: 0; background: var(--wc-sidebar-bg);
+  display: flex; flex-direction: column; align-items: center; padding: 16px 0; gap: 4px;
+}
+.sb-logo { width: 32px; height: 32px; margin-bottom: 16px; opacity: 0.7; }
+.sb-icon {
+  width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center;
+  cursor: pointer; transition: background 0.12s;
+}
+.sb-icon:hover { background: rgba(255,255,255,0.06); }
+.sb-icon.active { background: rgba(255,255,255,0.1); }
+.sb-icon svg { width: 18px; height: 18px; }
+.sb-bottom { margin-top: auto; }
+.sb-avatar { width: 30px; height: 30px; border-radius: 50%; background: linear-gradient(135deg,var(--wc-blue),#3B82F6); display: flex; align-items: center; justify-content: center; color: white; font-size: 10px; font-weight: 600; }
+
+/* Main */
+.main { flex: 1; overflow-y: auto; background: var(--wc-surface); }
+
+/* Top bar */
+.topbar {
+  padding: 14px 28px; display: flex; align-items: center; justify-content: space-between;
+  border-bottom: 1px solid var(--wc-border-light); background: var(--wc-surface-card);
+}
+.breadcrumb { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--wc-text-ter); }
+.breadcrumb a { color: var(--wc-blue); text-decoration: none; font-weight: 500; }
+.breadcrumb-sep { opacity: 0.4; }
+.breadcrumb-current { color: var(--wc-text); font-weight: 500; }
+.topbar-actions { display: flex; gap: 8px; }
+.btn { font-family: 'DM Sans',sans-serif; font-size: 12px; padding: 7px 16px; border-radius: 8px; cursor: pointer; font-weight: 500; display: flex; align-items: center; gap: 5px; border: 1px solid var(--wc-border); background: var(--wc-surface-card); color: var(--wc-text-sec); transition: all 0.12s; }
+.btn:hover { border-color: #ccc; }
+.btn-blue { background: var(--wc-blue); color: white; border: none; }
+.btn-blue:hover { background: var(--wc-blue-dark); }
+.btn-red { color: var(--wc-red); border-color: #FECACA; background: var(--wc-red-light); }
+
+/* Client header */
+.client-hero {
+  padding: 28px 28px 0; display: flex; gap: 20px; align-items: flex-start;
+}
+.client-avatar {
+  width: 72px; height: 72px; border-radius: 18px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 24px; font-weight: 600; flex-shrink: 0;
+}
+.client-title {
+  font-family: 'Fraunces', serif; font-size: 26px; font-weight: 600;
+  color: var(--wc-text); letter-spacing: -0.03em;
+}
+.client-addr { font-size: 14px; color: var(--wc-text-sec); margin-top: 3px; }
+.client-badges { display: flex; gap: 6px; margin-top: 10px; flex-wrap: wrap; }
+.badge { display: inline-flex; align-items: center; font-size: 11px; padding: 4px 10px; border-radius: 20px; font-weight: 500; gap: 4px; }
+.badge-green { background: var(--wc-green-bg); color: #166534; }
+.badge-purple { background: var(--wc-purple-bg); color: var(--wc-purple); }
+.badge-gray { background: var(--wc-surface); color: var(--wc-text-sec); border: 1px solid var(--wc-border-light); }
+.badge-blue { background: var(--wc-blue-mid); color: var(--wc-blue); }
+
+/* Stats strip */
+.client-stats {
+  display: flex; gap: 1px; background: var(--wc-border-light); margin: 20px 28px 0;
+  border-radius: 10px; overflow: hidden; border: 1px solid var(--wc-border);
+}
+.c-stat { flex: 1; background: var(--wc-surface-card); padding: 14px 16px; }
+.c-stat-label { font-size: 10px; color: var(--wc-text-ter); text-transform: uppercase; letter-spacing: 0.06em; }
+.c-stat-val { font-family: 'Fraunces',serif; font-size: 22px; font-weight: 600; color: var(--wc-text); margin-top: 2px; letter-spacing: -0.02em; }
+.c-stat-sub { font-size: 11px; color: var(--wc-text-ter); margin-top: 2px; }
+
+/* Content grid */
+.content-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
+  padding: 20px 28px 28px;
+}
+.card {
+  background: var(--wc-surface-card); border: 1px solid var(--wc-border);
+  border-radius: 10px; overflow: hidden;
+}
+.card-head {
+  padding: 14px 18px; border-bottom: 1px solid var(--wc-border-light);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.card-title { font-size: 13px; font-weight: 500; color: var(--wc-text); }
+.card-body { padding: 16px 18px; }
+.card-full { grid-column: 1 / -1; }
+
+/* Info rows */
+.info-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--wc-border-light); font-size: 13px; }
+.info-row:last-child { border-bottom: none; }
+.info-label { color: var(--wc-text-sec); }
+.info-val { font-weight: 500; color: var(--wc-text); text-align: right; }
+.info-val.blue { color: var(--wc-blue); }
+
+/* Note */
+.note-box { background: #FFFBEB; border: 1px solid #FDE68A; border-radius: 8px; padding: 12px 14px; font-size: 13px; color: #78350F; line-height: 1.5; }
+.note-icon { display: inline; margin-right: 4px; }
+
+/* Visit history */
+.visit-item {
+  display: flex; align-items: center; gap: 12px; padding: 10px 0;
+  border-bottom: 1px solid var(--wc-border-light); font-size: 13px;
+}
+.visit-item:last-child { border-bottom: none; }
+.visit-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.visit-date { font-weight: 500; color: var(--wc-text); min-width: 90px; }
+.visit-by { color: var(--wc-text-ter); flex: 1; }
+.visit-amount { font-family: 'Fraunces',serif; font-weight: 600; color: var(--wc-text); font-size: 14px; }
+
+/* Revenue mini chart */
+.mini-bars { display: flex; align-items: flex-end; gap: 4px; height: 48px; margin-top: 12px; }
+.mini-bar { flex: 1; border-radius: 3px 3px 1px 1px; background: var(--wc-blue-mid); transition: background 0.12s; }
+.mini-bar:hover { background: var(--wc-blue); }
+.mini-bar.current { background: var(--wc-blue); }
+
+/* Photo grid */
+.photo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.photo-thumb {
+  aspect-ratio: 4/3; border-radius: 8px; background: var(--wc-surface);
+  border: 1px solid var(--wc-border-light); display: flex; align-items: center;
+  justify-content: center; color: var(--wc-text-ter); font-size: 11px; cursor: pointer;
+  transition: border-color 0.12s;
+}
+.photo-thumb:hover { border-color: var(--wc-blue); }
+.photo-thumb.add { border-style: dashed; }
+
+/* Timeline */
+.timeline-item { display: flex; gap: 12px; padding: 8px 0; font-size: 12px; }
+.timeline-time { color: var(--wc-text-ter); min-width: 65px; flex-shrink: 0; }
+.timeline-dot-wrap { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; }
+.timeline-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--wc-blue-mid); border: 2px solid var(--wc-blue); flex-shrink: 0; }
+.timeline-line { width: 1px; flex: 1; background: var(--wc-border-light); margin-top: 4px; }
+.timeline-content { color: var(--wc-text-sec); line-height: 1.4; padding-bottom: 8px; }
+.timeline-content strong { color: var(--wc-text); font-weight: 500; }
+
+/* Animations */
+@keyframes fadeIn { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:translateY(0); } }
+.card { animation: fadeIn 0.4s ease both; }
+.card:nth-child(1) { animation-delay: 0.05s; }
+.card:nth-child(2) { animation-delay: 0.1s; }
+.card:nth-child(3) { animation-delay: 0.15s; }
+.card:nth-child(4) { animation-delay: 0.2s; }
+.card:nth-child(5) { animation-delay: 0.25s; }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .sidebar { display: none; }
+  .app { border-radius: 0; border: none; box-shadow: none; }
+  .content-grid { grid-template-columns: 1fr; padding: 16px; }
+  .client-hero { padding: 20px 16px 0; }
+  .client-stats { margin: 16px; }
+  .client-title { font-size: 22px; }
+  .topbar { padding: 12px 16px; }
+  .card-full { grid-column: 1; }
+}
+</style>
+
+<div class="app">
+  <!-- Collapsed sidebar -->
+  <div class="sidebar">
+    <svg class="sb-logo" viewBox="0 0 60 60" fill="none"><path d="M30 4 L48 12 L52 30 Q52 46 30 56 Q8 46 8 30 L12 12 Z" fill="#3B82F6" opacity="0.2"/><path d="M20 28 L22 20 L26 22 L30 18 L34 22 L38 20 L40 28 L36 32 Q33 38 30 38 Q27 38 24 32 Z" fill="#60A5FA"/><path d="M22 20 L20 14 L25 18 Z" fill="#60A5FA"/><path d="M38 20 L40 14 L35 18 Z" fill="#60A5FA"/></svg>
+    <div class="sb-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#6B6960" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></div>
+    <div class="sb-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#6B6960" stroke-width="1.5"><path d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/></svg></div>
+    <div class="sb-icon active"><svg viewBox="0 0 24 24" fill="none" stroke="#E0DDD6" stroke-width="1.5"><path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg></div>
+    <div class="sb-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#6B6960" stroke-width="1.5"><path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/></svg></div>
+    <div class="sb-bottom"><div class="sb-avatar">PW</div></div>
+  </div>
+
+  <div class="main">
+    <div class="topbar">
+      <div class="breadcrumb">
+        <a href="#">Klanten</a>
+        <span class="breadcrumb-sep">/</span>
+        <span class="breadcrumb-current">Bakkerij Lievens</span>
+      </div>
+      <div class="topbar-actions">
+        <button class="btn"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>Bewerken</button>
+        <button class="btn btn-blue"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>Bellen</button>
+        <button class="btn btn-red"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 11v6M14 11v6M4 7h16M6 7l1 12a2 2 0 002 2h6a2 2 0 002-2l1-12M9 7V4a1 1 0 011-1h4a1 1 0 011 1v3"/></svg>Deactiveer</button>
+      </div>
+    </div>
+
+    <!-- Client hero -->
+    <div class="client-hero">
+      <div class="client-avatar" style="background: var(--wc-purple-bg); color: var(--wc-purple);">BL</div>
+      <div>
+        <div class="client-title">Bakkerij Lievens</div>
+        <div class="client-addr">Brusselsesteenweg 88, 1790 Affligem</div>
+        <div class="client-badges">
+          <span class="badge badge-green">Actief</span>
+          <span class="badge badge-purple">Zone A · Affligem</span>
+          <span class="badge badge-gray">4-wekelijks</span>
+          <span class="badge badge-blue">Sinds jan 2024</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="client-stats">
+      <div class="c-stat"><div class="c-stat-label">Totale omzet</div><div class="c-stat-val">€ 675</div><div class="c-stat-sub">15 bezoeken</div></div>
+      <div class="c-stat"><div class="c-stat-label">Gem. per bezoek</div><div class="c-stat-val">€ 45</div><div class="c-stat-sub">stabiel</div></div>
+      <div class="c-stat"><div class="c-stat-label">Laatste bezoek</div><div class="c-stat-val">7 mrt</div><div class="c-stat-sub">28 dagen geleden</div></div>
+      <div class="c-stat"><div class="c-stat-label">Volgend bezoek</div><div class="c-stat-val">4 apr</div><div class="c-stat-sub">vandaag</div></div>
+      <div class="c-stat"><div class="c-stat-label">Betaalstatus</div><div class="c-stat-val" style="color:var(--wc-green);">OK</div><div class="c-stat-sub">alles betaald</div></div>
+    </div>
+
+    <!-- Content grid -->
+    <div class="content-grid">
+      <!-- Contact info -->
+      <div class="card">
+        <div class="card-head"><span class="card-title">Contactgegevens</span></div>
+        <div class="card-body">
+          <div class="info-row"><span class="info-label">Contactpersoon</span><span class="info-val">Marc Lievens</span></div>
+          <div class="info-row"><span class="info-label">Telefoon</span><span class="info-val blue">0476 23 14 88</span></div>
+          <div class="info-row"><span class="info-label">E-mail</span><span class="info-val blue">marc@bakkerijlievens.be</span></div>
+          <div class="info-row"><span class="info-label">Tarief</span><span class="info-val">€ 45 / beurt</span></div>
+          <div class="info-row"><span class="info-label">Betaalwijze</span><span class="info-val">Cash</span></div>
+          <div class="info-row"><span class="info-label">Type dienst</span><span class="info-val">Ramen + etalage</span></div>
+        </div>
+      </div>
+
+      <!-- Omzet mini chart -->
+      <div class="card">
+        <div class="card-head"><span class="card-title">Omzet (12 maanden)</span><span style="font-size:11px;color:var(--wc-text-ter);">€ 675 totaal</span></div>
+        <div class="card-body">
+          <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--wc-text-ter);margin-bottom:4px;"><span>apr 2024</span><span>mrt 2025</span></div>
+          <div class="mini-bars">
+            <div class="mini-bar" style="height:80%;"></div>
+            <div class="mini-bar" style="height:100%;"></div>
+            <div class="mini-bar" style="height:100%;"></div>
+            <div class="mini-bar" style="height:0%;border:1px dashed var(--wc-border);background:none;"></div>
+            <div class="mini-bar" style="height:100%;"></div>
+            <div class="mini-bar" style="height:100%;"></div>
+            <div class="mini-bar" style="height:100%;"></div>
+            <div class="mini-bar" style="height:0%;border:1px dashed var(--wc-border);background:none;"></div>
+            <div class="mini-bar" style="height:100%;"></div>
+            <div class="mini-bar" style="height:100%;"></div>
+            <div class="mini-bar" style="height:100%;"></div>
+            <div class="mini-bar current" style="height:100%;"></div>
+          </div>
+          <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--wc-text-ter);margin-top:6px;"><span>Dashed = overgeslagen (vakantie)</span><span style="color:var(--wc-blue);font-weight:500;">€45/beurt</span></div>
+          <div class="note-box" style="margin-top:14px;"><span class="note-icon">📝</span> Toegang via zij-ingang. Niet bellen vóór 8u30. Vraagt altijd factuur voor boekhouding.</div>
+        </div>
+      </div>
+
+      <!-- Visit history -->
+      <div class="card">
+        <div class="card-head"><span class="card-title">Bezoekhistoriek</span><span style="font-size:11px;color:var(--wc-text-ter);">15 bezoeken</span></div>
+        <div class="card-body">
+          <div class="visit-item"><div class="visit-dot" style="background:var(--wc-green);"></div><div class="visit-date">7 mrt 2025</div><div class="visit-by">Philip</div><span class="badge badge-green" style="font-size:10px;">Betaald</span><div class="visit-amount">€ 45</div></div>
+          <div class="visit-item"><div class="visit-dot" style="background:var(--wc-green);"></div><div class="visit-date">8 feb 2025</div><div class="visit-by">Philip</div><span class="badge badge-green" style="font-size:10px;">Betaald</span><div class="visit-amount">€ 45</div></div>
+          <div class="visit-item"><div class="visit-dot" style="background:var(--wc-amber);"></div><div class="visit-date">10 jan 2025</div><div class="visit-by">Philip</div><span class="badge" style="font-size:10px;background:var(--wc-amber-bg);color:#92400E;">Wacht</span><div class="visit-amount">€ 45</div></div>
+          <div class="visit-item"><div class="visit-dot" style="background:var(--wc-green);"></div><div class="visit-date">13 dec 2024</div><div class="visit-by">Philip</div><span class="badge badge-green" style="font-size:10px;">Betaald</span><div class="visit-amount">€ 45</div></div>
+          <div class="visit-item"><div class="visit-dot" style="background:var(--wc-green);"></div><div class="visit-date">15 nov 2024</div><div class="visit-by">Philip</div><span class="badge badge-green" style="font-size:10px;">Betaald</span><div class="visit-amount">€ 45</div></div>
+          <div style="text-align:center;padding-top:8px;"><a href="#" style="font-size:12px;color:var(--wc-blue);text-decoration:none;font-weight:500;">Alle 15 bezoeken bekijken →</a></div>
+        </div>
+      </div>
+
+      <!-- Photos -->
+      <div class="card">
+        <div class="card-head"><span class="card-title">Foto's</span><button class="btn" style="font-size:11px;padding:4px 10px;"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>Foto toevoegen</button></div>
+        <div class="card-body">
+          <div class="photo-grid">
+            <div class="photo-thumb" style="background:linear-gradient(135deg,#e8e5de,#d8d4cc);color:var(--wc-text-ter);font-size:20px;">🏪</div>
+            <div class="photo-thumb" style="background:linear-gradient(135deg,#dce8f5,#c4d4e8);color:var(--wc-blue);font-size:20px;">🪟</div>
+            <div class="photo-thumb add"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 5v14M5 12h14"/></svg></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Activity timeline -->
+      <div class="card card-full">
+        <div class="card-head"><span class="card-title">Activiteit</span></div>
+        <div class="card-body">
+          <div style="display:flex;gap:24px;">
+            <div style="flex:1;">
+              <div class="timeline-item">
+                <div class="timeline-time">Vandaag</div>
+                <div class="timeline-dot-wrap"><div class="timeline-dot" style="border-color:var(--wc-blue);background:var(--wc-blue);"></div><div class="timeline-line"></div></div>
+                <div class="timeline-content"><strong>Gepland bezoek</strong> — Stop 2 in route Zone A. Geschatte aankomst 09:15.</div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-time">7 mrt</div>
+                <div class="timeline-dot-wrap"><div class="timeline-dot" style="border-color:var(--wc-green);background:var(--wc-green-bg);"></div><div class="timeline-line"></div></div>
+                <div class="timeline-content"><strong>Bezoek afgerond</strong> — €45 cash betaald. Duur: 18 min.</div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-time">8 feb</div>
+                <div class="timeline-dot-wrap"><div class="timeline-dot" style="border-color:var(--wc-green);background:var(--wc-green-bg);"></div><div class="timeline-line"></div></div>
+                <div class="timeline-content"><strong>Bezoek afgerond</strong> — €45 cash betaald. Duur: 22 min.</div>
+              </div>
+            </div>
+            <div style="flex:1;">
+              <div class="timeline-item">
+                <div class="timeline-time">10 jan</div>
+                <div class="timeline-dot-wrap"><div class="timeline-dot" style="border-color:var(--wc-amber);background:var(--wc-amber-bg);"></div><div class="timeline-line"></div></div>
+                <div class="timeline-content"><strong>Bezoek afgerond</strong> — €45 openstaand. Marc was niet aanwezig, factuur verstuurd.</div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-time">5 jan</div>
+                <div class="timeline-dot-wrap"><div class="timeline-dot"></div><div class="timeline-line"></div></div>
+                <div class="timeline-content"><strong>Notitie aangepast</strong> — "Vraagt altijd factuur voor boekhouding" toegevoegd.</div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-time">13 dec</div>
+                <div class="timeline-dot-wrap"><div class="timeline-dot" style="border-color:var(--wc-green);background:var(--wc-green-bg);"></div></div>
+                <div class="timeline-content"><strong>Bezoek afgerond</strong> — €45 cash betaald.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,265 @@
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&display=swap');
+
+:root {
+  --wc-blue: #1D4ED8; --wc-blue-light: #EFF6FF; --wc-blue-mid: #DBEAFE;
+  --wc-green: #059669; --wc-green-light: #ECFDF5; --wc-green-bg: #DCFCE7;
+  --wc-amber: #D97706; --wc-amber-bg: #FEF3C7;
+  --wc-surface: #FAFAF8; --wc-surface-card: #FFFFFF;
+  --wc-border: #E8E5DE; --wc-border-light: #F0EDE6;
+  --wc-text: #1A1A18; --wc-text-sec: #6B6960; --wc-text-ter: #9C978C;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+.showcase { display: flex; justify-content: center; gap: 28px; padding: 32px 16px; flex-wrap: wrap; }
+.phone-col { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.phone-label { font-family: 'DM Sans',sans-serif; font-size: 11px; font-weight: 500; color: var(--wc-text-ter); text-transform: uppercase; letter-spacing: 0.08em; }
+
+.phone {
+  width: 375px; min-height: 780px;
+  background: var(--wc-surface); border-radius: 48px;
+  border: 6px solid #1A1A18; overflow: hidden;
+  position: relative; display: flex; flex-direction: column;
+  font-family: 'DM Sans', system-ui, sans-serif;
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.08), 0 20px 50px rgba(0,0,0,0.12);
+}
+.status-bar { display: flex; justify-content: space-between; align-items: center; padding: 14px 28px 8px; font-size: 13px; font-weight: 600; color: var(--wc-text); }
+.screen { flex: 1; overflow-y: auto; }
+
+/* ── Shared ── */
+.section { padding: 0 22px; margin-bottom: 16px; }
+.section-label { font-size: 10px; font-weight: 500; color: var(--wc-text-ter); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px; }
+.card { background: var(--wc-surface-card); border: 1px solid var(--wc-border); border-radius: 14px; overflow: hidden; }
+.badge { display: inline-flex; align-items: center; font-size: 11px; padding: 4px 10px; border-radius: 20px; font-weight: 500; }
+.badge-green { background: var(--wc-green-bg); color: #166534; }
+.badge-blue { background: var(--wc-blue-mid); color: var(--wc-blue); }
+.badge-gray { background: var(--wc-surface); color: var(--wc-text-sec); border: 1px solid var(--wc-border-light); }
+
+/* ── Screen 1: Bezoek afronden ── */
+.finish-header {
+  padding: 20px 22px; text-align: center;
+  background: linear-gradient(180deg, var(--wc-green-light) 0%, var(--wc-surface) 100%);
+}
+.finish-check {
+  width: 56px; height: 56px; border-radius: 50%;
+  background: var(--wc-green); display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 12px; box-shadow: 0 4px 12px rgba(5,150,105,0.25);
+}
+.finish-title { font-family: 'Fraunces',serif; font-size: 22px; font-weight: 600; color: var(--wc-text); }
+.finish-sub { font-size: 13px; color: var(--wc-text-sec); margin-top: 4px; }
+
+.amount-input {
+  display: flex; align-items: center; justify-content: center; gap: 4px;
+  padding: 16px; background: var(--wc-surface-card); border: 1px solid var(--wc-border);
+  border-radius: 14px; margin: 0 22px 16px;
+}
+.amount-euro { font-family: 'Fraunces',serif; font-size: 36px; font-weight: 600; color: var(--wc-text-ter); }
+.amount-val { font-family: 'Fraunces',serif; font-size: 36px; font-weight: 600; color: var(--wc-text); }
+.amount-edit { font-size: 11px; color: var(--wc-blue); font-weight: 500; margin-left: 8px; cursor: pointer; }
+
+.pay-options { display: flex; gap: 8px; padding: 0 22px; margin-bottom: 16px; }
+.pay-opt {
+  flex: 1; padding: 14px 8px; border-radius: 12px;
+  border: 1.5px solid var(--wc-border); background: var(--wc-surface-card);
+  text-align: center; cursor: pointer; transition: all 0.15s;
+}
+.pay-opt.selected { border-color: var(--wc-blue); background: var(--wc-blue-light); }
+.pay-opt-icon { font-size: 20px; margin-bottom: 4px; }
+.pay-opt-label { font-size: 12px; font-weight: 500; color: var(--wc-text); }
+
+.note-input {
+  margin: 0 22px 16px; padding: 12px 14px; border-radius: 12px;
+  border: 1px solid var(--wc-border); background: var(--wc-surface-card);
+  font-size: 13px; color: var(--wc-text-sec); min-height: 60px;
+  font-family: 'DM Sans',sans-serif;
+}
+
+.photo-row { display: flex; gap: 8px; padding: 0 22px; margin-bottom: 20px; }
+.photo-btn {
+  flex: 1; padding: 12px; border-radius: 12px; border: 1.5px dashed var(--wc-border);
+  background: var(--wc-surface-card); text-align: center; cursor: pointer;
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+  font-size: 12px; color: var(--wc-text-sec); font-weight: 500;
+  transition: border-color 0.12s;
+}
+.photo-btn:hover { border-color: var(--wc-blue); }
+
+.btn-confirm {
+  margin: 0 22px 24px; padding: 16px; border-radius: 14px;
+  background: var(--wc-green); color: white; border: none;
+  font-family: 'DM Sans',sans-serif; font-size: 16px; font-weight: 500;
+  width: calc(100% - 44px); cursor: pointer;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  box-shadow: 0 4px 12px rgba(5,150,105,0.25);
+}
+
+/* ── Screen 2: Bevestiging ── */
+.confirm-screen { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px 22px; text-align: center; }
+.confirm-ring {
+  width: 80px; height: 80px; border-radius: 50%;
+  background: var(--wc-green-bg); display: flex; align-items: center; justify-content: center;
+  margin-bottom: 20px;
+}
+.confirm-ring-inner {
+  width: 56px; height: 56px; border-radius: 50%;
+  background: var(--wc-green); display: flex; align-items: center; justify-content: center;
+}
+.confirm-title { font-family: 'Fraunces',serif; font-size: 24px; font-weight: 600; color: var(--wc-text); margin-bottom: 6px; }
+.confirm-sub { font-size: 14px; color: var(--wc-text-sec); margin-bottom: 24px; }
+
+.confirm-summary {
+  width: 100%; background: var(--wc-surface-card); border: 1px solid var(--wc-border);
+  border-radius: 14px; padding: 16px; margin-bottom: 24px; text-align: left;
+}
+.summary-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid var(--wc-border-light); font-size: 13px; }
+.summary-row:last-child { border-bottom: none; }
+.summary-label { color: var(--wc-text-sec); }
+.summary-val { font-weight: 500; color: var(--wc-text); }
+
+.next-stop-card {
+  width: 100%; background: var(--wc-blue-light); border: 1px solid var(--wc-blue-mid);
+  border-radius: 14px; padding: 16px; display: flex; align-items: center; gap: 12px;
+  text-align: left; margin-bottom: 16px;
+}
+.next-num { width: 34px; height: 34px; border-radius: 50%; background: var(--wc-blue); color: white; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 600; flex-shrink: 0; }
+.next-info { flex: 1; }
+.next-name { font-size: 15px; font-weight: 500; color: var(--wc-text); }
+.next-addr { font-size: 12px; color: var(--wc-text-sec); }
+.next-price { font-family: 'Fraunces',serif; font-size: 16px; font-weight: 600; color: var(--wc-text); }
+
+.btn-nav {
+  width: 100%; padding: 15px; border-radius: 14px;
+  background: var(--wc-blue); color: white; border: none;
+  font-family: 'DM Sans',sans-serif; font-size: 15px; font-weight: 500;
+  cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px;
+  box-shadow: 0 4px 12px rgba(29,78,216,0.2);
+  margin-bottom: 10px;
+}
+.btn-back {
+  width: 100%; padding: 13px; border-radius: 14px;
+  background: var(--wc-surface-card); color: var(--wc-text-sec); border: 1px solid var(--wc-border);
+  font-family: 'DM Sans',sans-serif; font-size: 14px; font-weight: 500; cursor: pointer;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .showcase { gap: 16px; padding: 16px 8px; }
+  .phone { width: 100%; max-width: 400px; border-radius: 0; border: none; box-shadow: none; min-height: auto; }
+}
+
+/* Animations */
+@keyframes scaleIn { from { opacity:0; transform:scale(0.8); } to { opacity:1; transform:scale(1); } }
+@keyframes fadeUp { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+.finish-check { animation: scaleIn 0.4s ease 0.2s both; }
+.confirm-ring { animation: scaleIn 0.5s ease 0.1s both; }
+.pay-opt { animation: fadeUp 0.3s ease both; }
+.pay-opt:nth-child(1) { animation-delay: 0.15s; }
+.pay-opt:nth-child(2) { animation-delay: 0.2s; }
+.pay-opt:nth-child(3) { animation-delay: 0.25s; }
+</style>
+
+<div class="showcase">
+
+  <!-- Phone 1: Bezoek afronden -->
+  <div class="phone-col">
+    <span class="phone-label">Bezoek afronden</span>
+    <div class="phone">
+      <div class="status-bar"><span>9:41</span><span style="font-size:11px;">●●●●</span></div>
+      <div class="screen">
+        <div class="finish-header">
+          <div class="finish-check"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg></div>
+          <div class="finish-title">Bakkerij Lievens</div>
+          <div class="finish-sub">Brusselsesteenweg 88 · Stop 2 van 14</div>
+        </div>
+
+        <div class="section" style="margin-top:16px;">
+          <div class="section-label">Bedrag</div>
+        </div>
+        <div class="amount-input">
+          <span class="amount-euro">€</span>
+          <span class="amount-val">45</span>
+          <span class="amount-edit">Wijzig</span>
+        </div>
+
+        <div class="section"><div class="section-label">Betaalwijze</div></div>
+        <div class="pay-options">
+          <div class="pay-opt selected">
+            <div class="pay-opt-icon">💶</div>
+            <div class="pay-opt-label">Cash</div>
+          </div>
+          <div class="pay-opt">
+            <div class="pay-opt-icon">🏦</div>
+            <div class="pay-opt-label">Overschrijving</div>
+          </div>
+          <div class="pay-opt">
+            <div class="pay-opt-icon">📄</div>
+            <div class="pay-opt-label">Factuur</div>
+          </div>
+        </div>
+
+        <div class="section"><div class="section-label">Notitie (optioneel)</div></div>
+        <div class="note-input">Extra raam boven garage ook gedaan...</div>
+
+        <div class="section"><div class="section-label">Foto's</div></div>
+        <div class="photo-row">
+          <div class="photo-btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/><circle cx="12" cy="13" r="4"/></svg>
+            Foto nemen
+          </div>
+          <div class="photo-btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+            Uit galerij
+          </div>
+        </div>
+
+        <button class="btn-confirm">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+          Bezoek bevestigen
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Phone 2: Bevestiging + volgende stop -->
+  <div class="phone-col">
+    <span class="phone-label">Bevestigd</span>
+    <div class="phone">
+      <div class="status-bar"><span>9:41</span><span style="font-size:11px;">●●●●</span></div>
+      <div class="screen">
+        <div class="confirm-screen">
+          <div class="confirm-ring">
+            <div class="confirm-ring-inner"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg></div>
+          </div>
+          <div class="confirm-title">Bezoek afgerond!</div>
+          <div class="confirm-sub">Bakkerij Lievens is opgeslagen</div>
+
+          <div class="confirm-summary">
+            <div class="summary-row"><span class="summary-label">Bedrag</span><span class="summary-val">€ 45</span></div>
+            <div class="summary-row"><span class="summary-label">Betaalwijze</span><span class="summary-val">Cash</span></div>
+            <div class="summary-row"><span class="summary-label">Tijdstip</span><span class="summary-val">09:23</span></div>
+            <div class="summary-row"><span class="summary-label">Notitie</span><span class="summary-val" style="color:var(--wc-text-sec);">Extra raam boven garage</span></div>
+            <div class="summary-row"><span class="summary-label">Dagomzet</span><span class="summary-val" style="color:var(--wc-green);">€ 69 / € 347</span></div>
+          </div>
+
+          <div style="font-size:10px;color:var(--wc-text-ter);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:10px;width:100%;text-align:left;">Volgende stop</div>
+
+          <div class="next-stop-card">
+            <div class="next-num">3</div>
+            <div class="next-info">
+              <div class="next-name">Mevr. Janssen</div>
+              <div class="next-addr">Molenbergstraat 5, Asse · ± 8 min</div>
+            </div>
+            <div class="next-price">€ 32</div>
+          </div>
+
+          <button class="btn-nav">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/></svg>
+            Navigeer naar Mevr. Janssen
+          </button>
+          <button class="btn-back">Terug naar overzicht</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

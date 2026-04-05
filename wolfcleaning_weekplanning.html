@@ -1,0 +1,255 @@
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&display=swap');
+
+:root {
+  --wc-blue: #1D4ED8; --wc-blue-light: #EFF6FF; --wc-blue-mid: #DBEAFE; --wc-blue-dark: #1E3A8A;
+  --wc-green: #059669; --wc-green-bg: #DCFCE7;
+  --wc-amber: #D97706; --wc-amber-bg: #FEF3C7;
+  --wc-zone-a: #6D5DD3; --wc-zone-a-bg: #EDE9FE;
+  --wc-zone-b: #0D9488; --wc-zone-b-bg: #E1F5EE;
+  --wc-zone-c: #D97706; --wc-zone-c-bg: #FEF3C7;
+  --wc-surface: #FAFAF8; --wc-surface-card: #FFFFFF;
+  --wc-border: #E8E5DE; --wc-border-light: #F0EDE6;
+  --wc-text: #1A1A18; --wc-text-sec: #6B6960; --wc-text-ter: #9C978C;
+  --wc-sidebar-bg: #141413;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+.app {
+  display: flex; min-height: 700px; border-radius: 14px; overflow: hidden;
+  font-family: 'DM Sans', system-ui, sans-serif;
+  background: var(--wc-surface); border: 1px solid var(--wc-border);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+}
+
+/* Collapsed sidebar */
+.sidebar {
+  width: 56px; flex-shrink: 0; background: var(--wc-sidebar-bg);
+  display: flex; flex-direction: column; align-items: center; padding: 16px 0; gap: 4px;
+}
+.sb-logo { width: 32px; height: 32px; margin-bottom: 16px; opacity: 0.7; }
+.sb-icon { width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+.sb-icon.active { background: rgba(255,255,255,0.1); }
+.sb-icon svg { width: 18px; height: 18px; }
+.sb-bottom { margin-top: auto; }
+.sb-avatar { width: 30px; height: 30px; border-radius: 50%; background: linear-gradient(135deg,var(--wc-blue),#3B82F6); display: flex; align-items: center; justify-content: center; color: white; font-size: 10px; font-weight: 600; }
+
+/* Main */
+.main { flex: 1; overflow: auto; }
+
+.topbar {
+  padding: 14px 28px; display: flex; align-items: center; justify-content: space-between;
+  border-bottom: 1px solid var(--wc-border-light); background: var(--wc-surface-card);
+}
+.topbar-left { display: flex; align-items: center; gap: 16px; }
+.topbar-title { font-family: 'Fraunces',serif; font-size: 18px; font-weight: 600; color: var(--wc-text); letter-spacing: -0.02em; }
+.week-nav { display: flex; align-items: center; gap: 8px; }
+.week-btn { width: 28px; height: 28px; border-radius: 6px; border: 1px solid var(--wc-border); background: var(--wc-surface-card); display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 14px; color: var(--wc-text-sec); }
+.week-label { font-size: 13px; font-weight: 500; color: var(--wc-text); min-width: 120px; text-align: center; }
+.topbar-right { display: flex; gap: 8px; }
+.btn { font-family: 'DM Sans',sans-serif; font-size: 12px; padding: 7px 14px; border-radius: 8px; cursor: pointer; font-weight: 500; display: flex; align-items: center; gap: 5px; border: 1px solid var(--wc-border); background: var(--wc-surface-card); color: var(--wc-text-sec); }
+.btn-blue { background: var(--wc-blue); color: white; border: none; }
+
+/* Week grid */
+.week-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0; padding: 0; }
+.day-col { border-right: 1px solid var(--wc-border-light); min-height: 560px; display: flex; flex-direction: column; }
+.day-col:last-child { border-right: none; }
+
+.day-header {
+  padding: 14px 14px 10px; border-bottom: 1px solid var(--wc-border-light);
+  background: var(--wc-surface-card); position: sticky; top: 0;
+}
+.day-name { font-size: 11px; color: var(--wc-text-ter); text-transform: uppercase; letter-spacing: 0.06em; font-weight: 500; }
+.day-date { font-family: 'Fraunces',serif; font-size: 20px; font-weight: 600; color: var(--wc-text); margin-top: 2px; }
+.day-date.today { color: var(--wc-blue); }
+.day-zone { margin-top: 6px; }
+.zone-tag { font-size: 10px; font-weight: 500; padding: 3px 8px; border-radius: 12px; display: inline-block; }
+.zone-a-tag { background: var(--wc-zone-a-bg); color: var(--wc-zone-a); }
+.zone-b-tag { background: var(--wc-zone-b-bg); color: var(--wc-zone-b); }
+.zone-c-tag { background: var(--wc-zone-c-bg); color: var(--wc-zone-c); }
+.zone-rest-tag { background: var(--wc-surface); color: var(--wc-text-ter); border: 1px dashed var(--wc-border); }
+
+.day-stats {
+  display: flex; gap: 8px; margin-top: 8px; font-size: 10px; color: var(--wc-text-ter);
+}
+.day-stat { display: flex; align-items: center; gap: 3px; }
+.day-stat strong { color: var(--wc-text-sec); font-weight: 600; }
+
+.day-body { flex: 1; padding: 8px 8px; overflow-y: auto; }
+
+/* Stop cards */
+.stop-mini {
+  display: flex; align-items: center; gap: 8px; padding: 8px 10px;
+  border-radius: 8px; margin-bottom: 4px;
+  border: 1px solid var(--wc-border-light); background: var(--wc-surface-card);
+  cursor: pointer; transition: all 0.12s; font-size: 12px;
+}
+.stop-mini:hover { border-color: var(--wc-border); box-shadow: 0 1px 4px rgba(0,0,0,0.04); }
+.stop-mini.done { opacity: 0.45; }
+.stop-mini.active { border-color: var(--wc-blue); background: var(--wc-blue-light); }
+
+.stop-mini-num {
+  width: 22px; height: 22px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10px; font-weight: 600; color: white; flex-shrink: 0;
+}
+.stop-mini-name { font-weight: 500; color: var(--wc-text); flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.stop-mini-price { font-family: 'Fraunces',serif; font-weight: 600; color: var(--wc-text); font-size: 12px; flex-shrink: 0; }
+.stop-mini-time { font-size: 10px; color: var(--wc-text-ter); flex-shrink: 0; }
+
+.stop-mini-badge { font-size: 9px; padding: 2px 6px; border-radius: 10px; font-weight: 500; flex-shrink: 0; }
+.badge-done { background: var(--wc-green-bg); color: #166534; }
+.badge-next { background: var(--wc-blue-mid); color: var(--wc-blue); }
+
+/* Day footer */
+.day-footer {
+  padding: 10px 12px; border-top: 1px solid var(--wc-border-light);
+  background: var(--wc-surface-card); font-size: 11px;
+  display: flex; justify-content: space-between; color: var(--wc-text-sec);
+}
+.day-total { font-family: 'Fraunces',serif; font-weight: 600; color: var(--wc-text); font-size: 14px; }
+
+/* Empty day */
+.day-empty {
+  flex: 1; display: flex; flex-direction: column; align-items: center;
+  justify-content: center; color: var(--wc-text-ter); font-size: 12px; padding: 20px;
+}
+.day-empty-icon { font-size: 24px; margin-bottom: 8px; opacity: 0.4; }
+
+/* Load bar */
+.load-bar { height: 3px; border-radius: 2px; background: var(--wc-border-light); margin-top: 8px; overflow: hidden; }
+.load-fill { height: 100%; border-radius: 2px; transition: width 0.3s; }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .app { border-radius: 0; border: none; box-shadow: none; flex-direction: column; }
+  .sidebar { display: none; }
+  .week-grid { grid-template-columns: 1fr; }
+  .day-col { min-height: auto; border-right: none; border-bottom: 1px solid var(--wc-border); }
+  .day-col:last-child { border-bottom: none; }
+}
+
+/* Animations */
+@keyframes fadeIn { from { opacity:0; transform:translateY(4px); } to { opacity:1; transform:translateY(0); } }
+.stop-mini { animation: fadeIn 0.3s ease both; }
+</style>
+
+<div class="app">
+  <div class="sidebar">
+    <svg class="sb-logo" viewBox="0 0 60 60" fill="none"><path d="M30 4 L48 12 L52 30 Q52 46 30 56 Q8 46 8 30 L12 12 Z" fill="#3B82F6" opacity="0.2"/><path d="M20 28 L22 20 L26 22 L30 18 L34 22 L38 20 L40 28 L36 32 Q33 38 30 38 Q27 38 24 32 Z" fill="#60A5FA"/><path d="M22 20 L20 14 L25 18 Z" fill="#60A5FA"/><path d="M38 20 L40 14 L35 18 Z" fill="#60A5FA"/></svg>
+    <div class="sb-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#6B6960" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></div>
+    <div class="sb-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#6B6960" stroke-width="1.5"><path d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/></svg></div>
+    <div class="sb-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#6B6960" stroke-width="1.5"><path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg></div>
+    <div class="sb-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#6B6960" stroke-width="1.5"><path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/></svg></div>
+    <div class="sb-icon active"><svg viewBox="0 0 24 24" fill="none" stroke="#E0DDD6" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></div>
+    <div class="sb-bottom"><div class="sb-avatar">PW</div></div>
+  </div>
+
+  <div class="main">
+    <div class="topbar">
+      <div class="topbar-left">
+        <div class="topbar-title">Weekplanning</div>
+        <div class="week-nav">
+          <div class="week-btn">‹</div>
+          <div class="week-label">Week 14 · apr 2025</div>
+          <div class="week-btn">›</div>
+        </div>
+      </div>
+      <div class="topbar-right">
+        <button class="btn"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 4h13M3 8h9M3 12h5"/></svg>Filter</button>
+        <button class="btn btn-blue"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>Auto-plan</button>
+      </div>
+    </div>
+
+    <div class="week-grid">
+      <!-- Maandag -->
+      <div class="day-col">
+        <div class="day-header">
+          <div class="day-name">Maandag</div>
+          <div class="day-date">31 mrt</div>
+          <div class="day-zone"><span class="zone-tag zone-a-tag">Zone A · Affligem</span></div>
+          <div class="day-stats"><div class="day-stat"><strong>12</strong> stops</div><div class="day-stat"><strong>34</strong> km</div></div>
+          <div class="load-bar"><div class="load-fill" style="width:80%;background:var(--wc-zone-a);"></div></div>
+        </div>
+        <div class="day-body">
+          <div class="stop-mini done"><div class="stop-mini-num" style="background:#9CA3AF;">✓</div><div class="stop-mini-name">Fam. Peeters</div><span class="stop-mini-badge badge-done">Gedaan</span><div class="stop-mini-price">€28</div></div>
+          <div class="stop-mini done"><div class="stop-mini-num" style="background:#9CA3AF;">✓</div><div class="stop-mini-name">Drukkerij Verhoeven</div><span class="stop-mini-badge badge-done">Gedaan</span><div class="stop-mini-price">€55</div></div>
+          <div class="stop-mini done"><div class="stop-mini-num" style="background:#9CA3AF;">✓</div><div class="stop-mini-name">Café Den Tansen</div><span class="stop-mini-badge badge-done">Gedaan</span><div class="stop-mini-price">€32</div></div>
+          <div class="stop-mini done"><div class="stop-mini-num" style="background:#9CA3AF;">✓</div><div class="stop-mini-name">Mevr. Van Damme</div><span class="stop-mini-badge badge-done">Gedaan</span><div class="stop-mini-price">€24</div></div>
+        </div>
+        <div class="day-footer"><span>12 stops</span><div class="day-total">€ 312</div></div>
+      </div>
+
+      <!-- Dinsdag -->
+      <div class="day-col">
+        <div class="day-header">
+          <div class="day-name">Dinsdag</div>
+          <div class="day-date">1 apr</div>
+          <div class="day-zone"><span class="zone-tag zone-b-tag">Zone B · Asse</span></div>
+          <div class="day-stats"><div class="day-stat"><strong>10</strong> stops</div><div class="day-stat"><strong>28</strong> km</div></div>
+          <div class="load-bar"><div class="load-fill" style="width:65%;background:var(--wc-zone-b);"></div></div>
+        </div>
+        <div class="day-body">
+          <div class="stop-mini done"><div class="stop-mini-num" style="background:#9CA3AF;">✓</div><div class="stop-mini-name">Fam. Claes</div><span class="stop-mini-badge badge-done">Gedaan</span><div class="stop-mini-price">€35</div></div>
+          <div class="stop-mini done"><div class="stop-mini-num" style="background:#9CA3AF;">✓</div><div class="stop-mini-name">Kapsalon Brigitte</div><span class="stop-mini-badge badge-done">Gedaan</span><div class="stop-mini-price">€28</div></div>
+          <div class="stop-mini done"><div class="stop-mini-num" style="background:#9CA3AF;">✓</div><div class="stop-mini-name">Immokantoor Verbeke</div><span class="stop-mini-badge badge-done">Gedaan</span><div class="stop-mini-price">€95</div></div>
+        </div>
+        <div class="day-footer"><span>10 stops</span><div class="day-total">€ 284</div></div>
+      </div>
+
+      <!-- Woensdag -->
+      <div class="day-col">
+        <div class="day-header">
+          <div class="day-name">Woensdag</div>
+          <div class="day-date">2 apr</div>
+          <div class="day-zone"><span class="zone-tag zone-a-tag">Zone A · Affligem</span></div>
+          <div class="day-stats"><div class="day-stat"><strong>14</strong> stops</div><div class="day-stat"><strong>38</strong> km</div></div>
+          <div class="load-bar"><div class="load-fill" style="width:92%;background:var(--wc-zone-a);"></div></div>
+        </div>
+        <div class="day-body">
+          <div class="stop-mini done"><div class="stop-mini-num" style="background:#9CA3AF;">✓</div><div class="stop-mini-name">Slagerij Willems</div><span class="stop-mini-badge badge-done">Gedaan</span><div class="stop-mini-price">€38</div></div>
+          <div class="stop-mini done"><div class="stop-mini-num" style="background:#9CA3AF;">✓</div><div class="stop-mini-name">Fam. De Ridder</div><span class="stop-mini-badge badge-done">Gedaan</span><div class="stop-mini-price">€24</div></div>
+          <div class="stop-mini done"><div class="stop-mini-num" style="background:#9CA3AF;">✓</div><div class="stop-mini-name">Apotheek Centrum</div><span class="stop-mini-badge badge-done">Gedaan</span><div class="stop-mini-price">€42</div></div>
+        </div>
+        <div class="day-footer"><span>14 stops</span><div class="day-total">€ 368</div></div>
+      </div>
+
+      <!-- Donderdag -->
+      <div class="day-col">
+        <div class="day-header">
+          <div class="day-name">Donderdag</div>
+          <div class="day-date">3 apr</div>
+          <div class="day-zone"><span class="zone-tag zone-c-tag">Zone C · Aalst</span></div>
+          <div class="day-stats"><div class="day-stat"><strong>8</strong> stops</div><div class="day-stat"><strong>22</strong> km</div></div>
+          <div class="load-bar"><div class="load-fill" style="width:52%;background:var(--wc-zone-c);"></div></div>
+        </div>
+        <div class="day-body">
+          <div class="stop-mini done"><div class="stop-mini-num" style="background:#9CA3AF;">✓</div><div class="stop-mini-name">Garage Jacobs</div><span class="stop-mini-badge badge-done">Gedaan</span><div class="stop-mini-price">€65</div></div>
+          <div class="stop-mini done"><div class="stop-mini-num" style="background:#9CA3AF;">✓</div><div class="stop-mini-name">Fam. Mertens</div><span class="stop-mini-badge badge-done">Gedaan</span><div class="stop-mini-price">€24</div></div>
+        </div>
+        <div class="day-footer"><span>8 stops</span><div class="day-total">€ 218</div></div>
+      </div>
+
+      <!-- Vrijdag (vandaag) -->
+      <div class="day-col" style="background: rgba(29,78,216,0.015);">
+        <div class="day-header" style="background: var(--wc-blue-light);">
+          <div class="day-name" style="color:var(--wc-blue);">Vrijdag · vandaag</div>
+          <div class="day-date today">4 apr</div>
+          <div class="day-zone"><span class="zone-tag zone-a-tag">Zone A · Affligem</span></div>
+          <div class="day-stats"><div class="day-stat"><strong>14</strong> stops</div><div class="day-stat"><strong>42</strong> km</div></div>
+          <div class="load-bar"><div class="load-fill" style="width:20%;background:var(--wc-blue);"></div></div>
+        </div>
+        <div class="day-body">
+          <div class="stop-mini done"><div class="stop-mini-num" style="background:#9CA3AF;">✓</div><div class="stop-mini-name">Fam. De Smedt</div><span class="stop-mini-badge badge-done">Gedaan</span><div class="stop-mini-price">€24</div></div>
+          <div class="stop-mini done"><div class="stop-mini-num" style="background:#9CA3AF;">✓</div><div class="stop-mini-name">Bakkerij Lievens</div><span class="stop-mini-badge badge-done">Gedaan</span><div class="stop-mini-price">€45</div></div>
+          <div class="stop-mini active"><div class="stop-mini-num" style="background:var(--wc-blue);">3</div><div class="stop-mini-name">Mevr. Janssen</div><span class="stop-mini-badge badge-next">Volgende</span><div class="stop-mini-price">€32</div></div>
+          <div class="stop-mini"><div class="stop-mini-num" style="background:var(--wc-zone-a);">4</div><div class="stop-mini-name">Kantoor VDB nv</div><div class="stop-mini-time">± 10:45</div><div class="stop-mini-price">€68</div></div>
+          <div class="stop-mini"><div class="stop-mini-num" style="background:var(--wc-zone-a);">5</div><div class="stop-mini-name">Fam. Wouters</div><div class="stop-mini-time">± 11:20</div><div class="stop-mini-price">€28</div></div>
+          <div class="stop-mini"><div class="stop-mini-num" style="background:var(--wc-zone-a);">6</div><div class="stop-mini-name">Huisarts Pieters</div><div class="stop-mini-time">± 11:50</div><div class="stop-mini-price">€35</div></div>
+          <div class="stop-mini"><div class="stop-mini-num" style="background:var(--wc-zone-a);">7</div><div class="stop-mini-name">Notaris Verbeke</div><div class="stop-mini-time">± 12:30</div><div class="stop-mini-price">€42</div></div>
+        </div>
+        <div class="day-footer"><span>2/14 gedaan</span><div class="day-total" style="color:var(--wc-blue);">€ 69 / € 347</div></div>
+      </div>
+    </div>
+  </div>
+</div>
